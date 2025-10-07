@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4F46E5">
+    <meta name="description" content="Inteligencia espiritual y mental avanzada para coherencia integral">
+    <title>Coherencia Integrada</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQ29oZXJlbmNpYSBJbnRlZ3JhZGEiLCJzaG9ydF9uYW1lIjoiQ29oZXJlbmNpYSIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMEYxNzJBIiwidGhlbWVfY29sb3IiOiIjNEY0NkU1IiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCclM0UlM0NjaXJjbGUgY3g9JzUwJyBjeT0nNTAnIHI9JzQ1JyBmaWxsPSclMjM0RjQ2RTUnLyUzRSUzQ3RleHQgeD0nNTAlMjcgeT0nNTUlMjcgZm9udC1zaXplPSc0MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nd2hpdGUnJTNFJUYwJTlGJUE3JUEwJTNDL3RleHQlM0UlM0Mvc3ZnJTNFIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwiLCJzaXplcyI6IjE5MngxOTIifV19">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: #F1F5F9;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(139, 92, 246, 0.2));
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #818CF8, #A78BFA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #CBD5E1;
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(79, 70, 229, 0.3);
+            border: 2px solid #4F46E5;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+            background: rgba(79, 70, 229, 0.5);
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .area-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .area-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .area-card:hover::before,
+        .area-card.active::before {
+            transform: scaleX(1);
+        }
+
+        .area-card:hover,
+        .area-card.active {
+            border-color: var(--color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .area-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .area-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #F1F5F9;
+        }
+
+        .area-level {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .level-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .level-fill {
+            height: 100%;
+            background: var(--color);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .level-adjuster {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .level-btn {
+            background: rgba(79, 70, 229, 0.2);
+            border: 1px solid var(--color);
+            color: var(--color);
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .level-btn:hover {
+            background: rgba(79, 70, 229, 0.4);
+        }
+
+        .input-section {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .input-section h2 {
+            color: #A78BFA;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 10px;
+            color: #F1F5F9;
+            font-size: 1rem;
+            resize: vertical;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #8B5CF6;
+        }
+
+        textarea::placeholder {
+            color: #64748B;
+        }
+
+        .btn-analyze {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-analyze:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-analyze:active {
+            transform: translateY(0);
+        }
+
+        .results-section {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .command-box {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(139, 92, 246, 0.2));
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #8B5CF6;
+        }
+
+        .command-box h3 {
+            color: #A78BFA;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .command-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #E2E8F0;
+            font-weight: 500;
+        }
+
+        .actions-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .actions-list li {
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            border-left: 3px solid var(--color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .actions-list li::before {
+            content: '▸';
+            color: var(--color);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .coherence-indicator {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .coherence-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: relative;
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .coherence-circle::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            padding: 5px;
+            background: conic-gradient(var(--color) var(--percentage), rgba(255, 255, 255, 0.1) var(--percentage));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .quick-btn {
+            padding: 10px 20px;
+            background: rgba(79, 70, 229, 0.2);
+            border: 1px solid #4F46E5;
+            border-radius: 20px;
+            color: #A78BFA;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .quick-btn:hover {
+            background: rgba(79, 70, 229, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tools-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tool-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(30, 41, 59, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 700px;
+            width: 100%;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .modal h2 {
+            color: #A78BFA;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .modal-input {
+            margin-bottom: 25px;
+        }
+
+        .modal-input label {
+            color: #CBD5E1;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .modal-input textarea {
+            width: 100%;
+            min-height: 80px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            padding: 15px;
+            background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 15px 30px;
+            background: rgba(139, 92, 246, 0.2);
+            border: 2px solid #8B5CF6;
+            border-radius: 10px;
+            color: #A78BFA;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(139, 92, 246, 0.3);
+        }
+
+        .meditation-container {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+        }
+
+        .meditation-phase {
+            font-size: 1.5rem;
+            color: #E2E8F0;
+            margin: 40px 0;
+            min-height: 40px;
+        }
+
+        .breath-circle {
+            width: 200px;
+            height: 200px;
+            margin: 40px auto;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            transition: transform 1s ease-in-out;
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--color);
+        }
+
+        .stat-label {
+            color: #94A3B8;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            color: var(--color);
+            font-weight: bold;
+        }
+
+        .stat-subtitle {
+            color: var(--color);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .reminder-section {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .reminder-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .reminder-input input {
+            flex: 1;
+            padding: 10px 15px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            color: #F1F5F9;
+            font-size: 1rem;
+        }
+
+        .reminder-input input:focus {
+            outline: none;
+            border-color: #8B5CF6;
+        }
+
+        .reminder-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .reminder-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .reminder-delete {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #EF4444;
+            color: #EF4444;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .reminder-delete:hover {
+            background: rgba(239, 68, 68, 0.4);
+        }
+
+        body.light-mode {
+            background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+            color: #1E293B;
+        }
+
+        body.light-mode .header,
+        body.light-mode .input-section,
+        body.light-mode .results-section,
+        body.light-mode .area-card,
+        body.light-mode .modal-content {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1E293B;
+        }
+
+        body.light-mode .header h1 {
+            background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.light-mode textarea {
+            background: rgba(241, 245, 249, 0.8);
+            color: #1E293B;
+            border-color: rgba(79, 70, 229, 0.3);
+        }
+
+        body.light-mode .command-text,
+        body.light-mode .area-title {
+            color: #1E293B;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .areas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-panel {
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .tool-btn {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" onclick="toggleTheme()">🌙</div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🧠✨ Sistema de Coherencia Integrada</h1>
+            <p>Inteligencia espiritual y mental avanzada a tu servicio</p>
+        </div>
+
+        <div class="areas-grid" id="areasGrid"></div>
+
+        <div class="input-section">
+            <h2>💭 Comparte tu estado actual</h2>
+            <textarea id="userInput" placeholder="Escribe aquí tus pensamientos, emociones, situaciones o decisiones que necesites clarificar...&#10;&#10;Ejemplos:&#10;• Siento ansiedad sobre mi proyecto laboral&#10;• No tengo energía y mi casa está desordenada&#10;• Necesito decidir sobre un cambio de carrera&#10;• ¿Qué debo atender hoy?"></textarea>
+            
+            <div class="quick-actions">
+                <button class="quick-btn" onclick="fillQuick('¿Qué necesito atender hoy?')">¿Qué atender hoy?</button>
+                <button class="quick-btn" onclick="fillQuick('Me siento disperso y sin dirección')">Estado disperso</button>
+                <button class="quick-btn" onclick="fillQuick('Tengo una decisión importante que tomar')">Decisión importante</button>
+                <button class="quick-btn" onclick="fillQuick('Necesito equilibrar mi energía')">Equilibrar energía</button>
+            </div>
+
+            <button class="btn-analyze" onclick="analyzeInput()">⚡ Traducir a Comandos Claros</button>
+        </div>
+
+        <div class="results-section" id="resultsSection">
+            <div class="command-box">
+                <h3>🎯 Comando Central</h3>
+                <div class="command-text" id="commandText"></div>
+            </div>
+
+            <div class="command-box">
+                <h3>📊 Diagnóstico del Estado Actual</h3>
+                <div id="diagnosisText"></div>
+            </div>
+
+            <div class="command-box">
+                <h3>⚡ Acciones Específicas por Área</h3>
+                <ul class="actions-list" id="actionsList"></ul>
+            </div>
+
+            <div class="coherence-indicator" id="coherenceIndicator">
+                <div class="coherence-circle" id="coherenceCircle">
+                    <span>0%</span>
+                </div>
+                <div>
+                    <strong style="color: #A78BFA;">Indicador de Coherencia</strong>
+                    <p style="color: #94A3B8; margin-top: 5px;" id="coherenceText"></p>
+                </div>
+            </div>
+
+            <div class="command-box">
+                <h3>✓ Verificación</h3>
+                <div id="verificationText"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tools-panel">
+        <button class="tool-btn" onclick="openMeditation()">
+            <span>🧘</span>
+            <span>Meditación</span>
+        </button>
+        <button class="tool-btn" onclick="openJournal()">
+            <span>📔</span>
+            <span>Diario</span>
+        </button>
+        <button class="tool-btn" onclick="openStats()">
+            <span>📊</span>
+            <span>Estadísticas</span>
+        </button>
+        <button class="tool-btn" onclick="openReminders()">
+            <span>⏰</span>
+            <span>Recordatorios</span>
+        </button>
+        <button class="tool-btn" onclick="openAffirmations()">
+            <span>🗣️</span>
+            <span>Comandos Verbales</span>
+        </button>
+    </div>
+
+    <!-- Modal Meditación -->
+    <div class="modal" id="meditationModal">
+        <div class="meditation-container">
+            <h2>🧘 Meditación de Coherencia</h2>
+            <div class="meditation-phase" id="meditationPhase">Prepárate para comenzar...</div>
+            <div class="breath-circle" id="breathCircle">🫁</div>
+            <button class="btn-secondary" onclick="closeMeditation()">Finalizar</button>
+        </div>
+    </div>
+
+    <!-- Modal Diario -->
+    <div class="modal" id="journalModal">
+        <div class="modal-content">
+            <h2>📔 Diario de Coherencia</h2>
+            
+            <div class="modal-input">
+                <label>3 cosas por las que estoy agradecido hoy:</label>
+                <textarea id="gratitude"></textarea>
+            </div>
+            
+            <div class="modal-input">
+                <label>¿Qué aprendí hoy?</label>
+                <textarea id="learning"></textarea>
+            </div>
+            
+            <div class="modal-input">
+                <label>Mi intención para mañana:</label>
+                <textarea id="intention"></textarea>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn-primary" onclick="saveJournal()">💾 Guardar</button>
+                <button class="btn-secondary" onclick="closeJournal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Estadísticas -->
+    <div class="modal" id="statsModal">
+        <div class="modal-content">
+            <h2>📊 Panel de Coherencia</h2>
+            
+            <div class="stats-grid" id="statsGrid"></div>
+            
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                <h3 style="color: #A78BFA; margin-bottom: 15px; font-size: 1.3rem;">💡 Recomendación Inteligente</h3>
+                <p id="recommendation" style="color: #E2E8F0; line-height: 1.6;"></p>
+            </div>
+            
+            <button class="btn-secondary" style="width: 100%;" onclick="closeStats()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Modal Recordatorios -->
+    <div class="modal" id="remindersModal">
+        <div class="modal-content">
+            <h2>⏰ Recordatorios Inteligentes</h2>
+            
+            <div class="reminder-section">
+                <h3 style="color: #A78BFA; margin-bottom: 15px;">Agregar nuevo recordatorio</h3>
+                <div class="reminder-input">
+                    <input type="time" id="reminderTime" value="09:00">
+                    <input type="text" id="reminderText" placeholder="Ej: Revisar mi coherencia diaria">
+                    <button class="btn-primary" onclick="addReminder()">Agregar</button>
+                </div>
+            </div>
+
+            <div class="reminder-section">
+                <h3 style="color: #A78BFA; margin-bottom: 15px;">Mis recordatorios</h3>
+                <ul class="reminder-list" id="reminderList"></ul>
+            </div>
+            
+            <button class="btn-secondary" style="width: 100%; margin-top: 20px;" onclick="closeReminders()">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        // Data structure
+        const appData = {
+            areas: [
+                { id: 'spiritual', icon: '🕉️', title: 'Espiritual', color: '#8B5CF6', level: 70, description: 'Propósito, valores, conexión interna' },
+                { id: 'health', icon: '💪', title: 'Cuerpo/Salud', color: '#10B981', level: 65, description: 'Energía física, nutrición, descanso' },
+                { id: 'family', icon: '👨‍👩‍👧', title: 'Familia', color: '#F59E0B', level: 80, description: 'Vínculos primarios, amor' },
+                { id: 'career', icon: '💼', title: 'Profesión/Finanzas', color: '#3B82F6', level: 60, description: 'Aporte, recursos, estabilidad' },
+                { id: 'study', icon: '📚', title: 'Estudio Personal', color: '#06B6D4', level: 55, description: 'Aprendizaje, expansión mental' },
+                { id: 'recreation', icon: '🎨', title: 'ReCreación', color: '#EC4899', level: 50, description: 'Disfrute, renovación' },
+                { id: 'home', icon: '🏡', title: 'Casa/Espacio', color: '#84CC16', level: 45, description: 'Orden físico, ambiente' },
+                { id: 'social', icon: '🤝', title: 'Social/Relaciones', color: '#F97316', level: 75, description: 'Comunidad, conexiones' }
+            ],
+            reminders: [],
+            journalEntries: [],
+            theme: 'dark'
+        };
+
+        // Initialize app
+        function initApp() {
+            loadData();
+            renderAreas();
+            updateStatsIfOpen();
+        }
+
+        // Load data from memory
+        function loadData() {
+            // Data persists in memory during session
+        }
+
+        // Render areas
+        function renderAreas() {
+            const grid = document.getElementById('areasGrid');
+            grid.innerHTML = '';
+            
+            appData.areas.forEach((area, index) => {
+                const card = document.createElement('div');
+                card.className = 'area-card';
+                card.style.setProperty('--color', area.color);
+                card.innerHTML = `
+                    <div class="area-icon">${area.icon}</div>
+                    <div class="area-title">${area.title}</div>
+                    <div style="color: #94A3B8; font-size: 0.9rem; margin-top: 5px;">${area.description}</div>
+                    <div class="area-level">
+                        <div class="level-bar">
+                            <div class="level-fill" style="width: ${area.level}%; background: ${area.color};"></div>
+                        </div>
+                        <span style="color: ${area.color}; font-weight: 600;">${area.level}%</span>
+                    </div>
+                    <div class="level-adjuster">
+                        <button class="level-btn" onclick="adjustLevel(${index}, -5)" style="--color: ${area.color};">-5</button>
+                        <button class="level-btn" onclick="adjustLevel(${index}, 5)" style="--color: ${area.color};">+5</button>
+                    </div>
+                `;
+                card.onclick = (e) => {
+                    if (!e.target.classList.contains('level-btn')) {
+                        card.classList.toggle('active');
+                    }
+                };
+                grid.appendChild(card);
+            });
+        }
+
+        // Adjust area level
+        function adjustLevel(index, delta) {
+            appData.areas[index].level = Math.max(0, Math.min(100, appData.areas[index].level + delta));
+            renderAreas();
+            updateStatsIfOpen();
+        }
+
+        // Quick fill
+        function fillQuick(text) {
+            document.getElementById('userInput').value = text;
+        }
+
+        // Analyze input
+        function analyzeInput() {
+            const input = document.getElementById('userInput').value.trim();
+            if (!input) {
+                alert('Por favor, escribe algo para analizar');
+                return;
+            }
+
+            const analysis = generateAnalysis(input);
+            displayResults(analysis);
+        }
+
+        // Generate analysis
+        function generateAnalysis(input) {
+            const lowerInput = input.toLowerCase();
+            
+            let affectedAreas = [];
+            let coherenceLevel = 0;
+            let diagnosis = '';
+            let command = '';
+            let actions = [];
+            let verification = '';
+
+            if (lowerInput.includes('ansi') || lowerInput.includes('estrés') || lowerInput.includes('agobiad')) {
+                affectedAreas = ['health', 'spiritual', 'recreation'];
+                coherenceLevel = 40;
+                diagnosis = 'Detectado: Sistema nervioso activado, desalineación mente-cuerpo, necesidad de regulación inmediata.';
+                command = 'COMANDO PRIORITARIO: Activar protocolo de regulación nerviosa. Respiración consciente → Movimiento suave → Reconexión con el momento presente.';
+                actions = [
+                    { area: 'health', text: 'Ejecutar 5 respiraciones profundas (4-7-8): inhala 4 seg, sostén 7 seg, exhala 8 seg', color: '#10B981' },
+                    { area: 'spiritual', text: 'Anclar atención en el ahora: nombrar 3 cosas que ves, 2 que sientes físicamente, 1 que escuchas', color: '#8B5CF6' },
+                    { area: 'recreation', text: 'Pausar 10 minutos sin pantallas: caminar, estirarte o cerrar ojos', color: '#EC4899' }
+                ];
+                verification = 'Sabrás que funcionó cuando: tu respiración se vuelva más lenta y profunda naturalmente, sientas tus pies firmemente en el suelo, y puedas identificar una prioridad clara para las próximas 2 horas.';
+            }
+            else if (lowerInput.includes('disperso') || lowerInput.includes('sin dirección') || lowerInput.includes('perdid')) {
+                affectedAreas = ['spiritual', 'career', 'study'];
+                coherenceLevel = 35;
+                diagnosis = 'Detectado: Desconexión con propósito central, energía fragmentada en múltiples direcciones sin jerarquía clara.';
+                command = 'COMANDO PRIORITARIO: Restablecer claridad de propósito. Pregunta central → Eliminar lo no esencial → Definir siguiente acción concreta.';
+                actions = [
+                    { area: 'spiritual', text: 'Responder por escrito: "Si solo pudiera lograr UNA cosa esta semana que me haga sentir alineado, ¿cuál sería?"', color: '#8B5CF6' },
+                    { area: 'career', text: 'Identificar las 3 tareas que realmente mueven la aguja en tu trabajo/proyecto. Eliminar o delegar el resto', color: '#3B82F6' },
+                    { area: 'study', text: 'Elegir UN tema de aprendizaje por 21 días. Desactivar todas las demás notificaciones de cursos/contenidos', color: '#06B6D4' }
+                ];
+                verification = 'Sabrás que funcionó cuando: puedas decir en una frase qué es lo más importante ahora, sientas alivio al decir "no" a lo secundario, y tengas una acción física agendada para hoy.';
+            }
+            else if (lowerInput.includes('decisión') || lowerInput.includes('decidir') || lowerInput.includes('elección')) {
+                affectedAreas = ['spiritual', 'career', 'family'];
+                coherenceLevel = 50;
+                diagnosis = 'Detectado: Momento de bifurcación. Necesidad de alinear valores profundos con elección práctica.';
+                command = 'COMANDO PRIORITARIO: Activar claridad decisional. Conectar con valores → Proyectar escenarios → Sentir la respuesta corporal.';
+                actions = [
+                    { area: 'spiritual', text: 'Escribir: "Mis 3 valores no negociables son..." y verificar qué opción los honra mejor', color: '#8B5CF6' },
+                    { area: 'career', text: 'Visualizar: ¿Cómo me siento dentro de 1 año si elijo la opción A? ¿Y con la opción B? Nota las sensaciones físicas', color: '#3B82F6' },
+                    { area: 'family', text: 'Consultar: ¿Esta decisión fortalece o debilita mis vínculos importantes? Conversar con 1 persona clave', color: '#F59E0B' }
+                ];
+                verification = 'Sabrás que funcionó cuando: sientas claridad visceral (no solo mental), puedas explicar tu decisión en 2 frases simples, y experimentes paz corporal al imaginarte siguiendo ese camino.';
+            }
+            else if (lowerInput.includes('energía') || lowerInput.includes('cansad') || lowerInput.includes('agotad')) {
+                affectedAreas = ['health', 'recreation', 'home'];
+                coherenceLevel = 30;
+                diagnosis = 'Detectado: Batería vital baja. Desequilibrio entre gasto y recuperación energética. Necesidad de recarga inmediata.';
+                command = 'COMANDO PRIORITARIO: Restaurar reservas vitales. Descanso de calidad → Nutrición consciente → Eliminación de vampiros energéticos.';
+                actions = [
+                    { area: 'health', text: 'Hoy: dormir 30 minutos extra, hidratación consciente (2L agua), comida con proteína y vegetales verdes', color: '#10B981' },
+                    { area: 'recreation', text: 'Agendar en calendario: 1 hora esta semana SOLO para ti, sin obligaciones ni pantallas. No negociable', color: '#EC4899' },
+                    { area: 'home', text: 'Identificar 3 "vampiros energéticos" en tu espacio (desorden, tareas pendientes, objetos rotos) y eliminar UNO hoy', color: '#84CC16' }
+                ];
+                verification = 'Sabrás que funcionó cuando: puedas completar una tarea sin esfuerzo excesivo, tu cuerpo pida menos estimulantes (café, azúcar), y sientas curiosidad natural por algo (señal de energía disponible).';
+            }
+            else if (lowerInput.includes('atender hoy') || lowerInput.includes('prioridad')) {
+                affectedAreas = ['spiritual', 'health', 'career'];
+                coherenceLevel = 60;
+                diagnosis = 'Detectado: Búsqueda de orientación diaria. Sistema listo para recibir instrucciones de alto nivel.';
+                command = 'COMANDO PRIORITARIO: Establecer intención clara para las próximas 24h. Alinear con energía disponible → Definir victoria del día.';
+                actions = [
+                    { area: 'spiritual', text: 'Pregunta matutina: "¿Qué versión de mí quiero ser hoy?" Elige 3 cualidades (ej: presente, compasivo, enfocado)', color: '#8B5CF6' },
+                    { area: 'health', text: 'Check corporal: ¿Qué necesita tu cuerpo HOY? (movimiento, descanso, nutrición, contacto físico) Dáselo', color: '#10B981' },
+                    { area: 'career', text: 'Definir "victoria del día": ¿Cuál es la UNA cosa que si logro, haré que este día valga la pena?', color: '#3B82F6' }
+                ];
+                verification = 'Sabrás que funcionó cuando: al final del día puedas decir "hice lo importante", sientas satisfacción (no agotamiento), y estés en paz con lo que quedó pendiente.';
+            }
+            else {
+                affectedAreas = ['spiritual', 'health', 'study'];
+                coherenceLevel = 55;
+                diagnosis = 'Detectado: Búsqueda de claridad general. Sistema disponible para optimización global.';
+                command = 'COMANDO PRIORITARIO: Escaneo completo del sistema. Identificar área de mayor desbalance → Aplicar micro-ajuste inmediato.';
+                actions = [
+                    { area: 'spiritual', text: 'Revisar cada área de vida del 1-10: ¿Cuál tiene el número más bajo? Esa es tu prioridad hoy', color: '#8B5CF6' },
+                    { area: 'health', text: 'Protocolo básico: 20 min movimiento + 7h sueño + hidratación. ¿Qué falta? Integrarlo hoy', color: '#10B981' },
+                    { area: 'study', text: 'Leer o escuchar durante 15 min algo que te expanda (libro, podcast, conversación profunda)', color: '#06B6D4' }
+                ];
+                verification = 'Sabrás que funcionó cuando: identifiques tu mayor palanca de cambio, hayas dado un paso concreto en esa área, y sientas momentum renovado.';
+            }
+
+            return { affectedAreas, coherenceLevel, diagnosis, command, actions, verification };
+        }
+
+        // Display results
+        function displayResults(analysis) {
+            document.getElementById('commandText').textContent = analysis.command;
+            document.getElementById('diagnosisText').textContent = analysis.diagnosis;
+            document.getElementById('verificationText').textContent = analysis.verification;
+
+            const actionsList = document.getElementById('actionsList');
+            actionsList.innerHTML = '';
+            analysis.actions.forEach(action => {
+                const li = document.createElement('li');
+                li.style.setProperty('--color', action.color);
+                li.textContent = action.text;
+                actionsList.appendChild(li);
+            });
+
+            const coherenceCircle = document.getElementById('coherenceCircle');
+            const coherenceText = document.getElementById('coherenceText');
+            coherenceCircle.style.setProperty('--percentage', `${analysis.coherenceLevel}%`);
+            
+            let color, message;
+            if (analysis.coherenceLevel < 40) {
+                color = '#EF4444';
+                message = 'Prioridad ALTA: Requiere atención inmediata';
+            } else if (analysis.coherenceLevel < 70) {
+                color = '#F59E0B';
+                message = 'Optimización recomendada: Área de oportunidad';
+            } else {
+                color = '#10B981';
+                message = 'Estado funcional: Mantenimiento ligero';
+            }
+            
+            coherenceCircle.style.setProperty('--color', color);
+            coherenceCircle.innerHTML = `<span>${analysis.coherenceLevel}%</span>`;
+            coherenceText.textContent = message;
+
+            document.querySelectorAll('.area-card').forEach((card, index) => {
+                card.classList.remove('active');
+                if (analysis.affectedAreas.includes(appData.areas[index].id)) {
+                    card.classList.add('active');
+                }
+            });
+
+            const resultsSection = document.getElementById('resultsSection');
+            resultsSection.classList.add('active');
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Meditation
+        let meditationInterval = null;
+
+        function openMeditation() {
+            document.getElementById('meditationModal').classList.add('active');
+            startMeditationCycle();
+        }
+
+        function closeMeditation() {
+            document.getElementById('meditationModal').classList.remove('active');
+            if (meditationInterval) {
+                clearTimeout(meditationInterval);
+                meditationInterval = null;
+            }
+        }
+
+        function startMeditationCycle() {
+            const phases = [
+                { text: 'Inhala profundamente por la nariz...', duration: 4000, scale: 1.4 },
+                { text: 'Sostén el aire suavemente...', duration: 7000, scale: 1.4 },
+                { text: 'Exhala lentamente por la boca...', duration: 8000, scale: 1 },
+                { text: 'Pausa natural...', duration: 2000, scale: 1 }
+            ];
+            
+            let phaseIndex = 0;
+            
+            function nextPhase() {
+                if (!document.getElementById('meditationModal').classList.contains('active')) return;
+                
+                const phase = phases[phaseIndex];
+                document.getElementById('meditationPhase').textContent = phase.text;
+                document.getElementById('breathCircle').style.transform = `scale(${phase.scale})`;
+                
+                phaseIndex = (phaseIndex + 1) % phases.length;
+                meditationInterval = setTimeout(nextPhase, phase.duration);
+            }
+            
+            nextPhase();
+        }
+
+        // Journal
+        function openJournal() {
+            document.getElementById('journalModal').classList.add('active');
+        }
+
+        function closeJournal() {
+            document.getElementById('journalModal').classList.remove('active');
+        }
+
+        function saveJournal() {
+            const gratitude = document.getElementById('gratitude').value;
+            const learning = document.getElementById('learning').value;
+            const intention = document.getElementById('intention').value;
+            
+            if (gratitude || learning || intention) {
+                const entry = {
+                    date: new Date().toISOString(),
+                    gratitude,
+                    learning,
+                    intention
+                };
+                
+                appData.journalEntries.push(entry);
+                
+                alert('✅ Entrada guardada en tu diario de coherencia\n\n"Lo que reconoces, crece."');
+                
+                document.getElementById('gratitude').value = '';
+                document.getElementById('learning').value = '';
+                document.getElementById('intention').value = '';
+                
+                closeJournal();
+            } else {
+                alert('Escribe al menos en uno de los campos para guardar tu reflexión.');
+            }
+        }
+
+        // Stats
+        function openStats() {
+            document.getElementById('statsModal').classList.add('active');
+            renderStats();
+        }
+
+        function closeStats() {
+            document.getElementById('statsModal').classList.remove('active');
+        }
+
+        function renderStats() {
+            const avgCoherence = Math.round(appData.areas.reduce((sum, a) => sum + a.level, 0) / appData.areas.length);
+            const highestArea = appData.areas.reduce((max, a) => a.level > max.level ? a : max);
+            const lowestArea = appData.areas.reduce((min, a) => a.level < min.level ? a : min);
+            
+            const statsGrid = document.getElementById('statsGrid');
+            statsGrid.innerHTML = `
+                <div class="stat-card" style="--color: #8B5CF6;">
+                    <div class="stat-label">Coherencia Promedio</div>
+                    <div class="stat-value">${avgCoherence}%</div>
+                </div>
+                
+                <div class="stat-card" style="--color: #10B981;">
+                    <div class="stat-label">Área más fuerte</div>
+                    <div class="stat-subtitle">${highestArea.icon} ${highestArea.title}</div>
+                    <div class="stat-value" style="font-size: 1.5rem; margin-top: 5px;">${highestArea.level}%</div>
+                </div>
+                
+                <div class="stat-card" style="--color: #F59E0B;">
+                    <div class="stat-label">Necesita atención</div>
+                    <div class="stat-subtitle">${lowestArea.icon} ${lowestArea.title}</div>
+                    <div class="stat-value" style="font-size: 1.5rem; margin-top: 5px;">${lowestArea.level}%</div>
+                </div>
+            `;
+            
+            const recommendation = document.getElementById('recommendation');
+            recommendation.innerHTML = `
+                Basado en tu perfil actual, tu mayor palanca de transformación está en <strong style="color: ${lowestArea.color};">${lowestArea.title}</strong>. 
+                Un incremento del 10% en esta área elevará tu coherencia general en un 5-8%. 
+                <br><br>
+                <strong>Acción micro hoy:</strong> Dedica 15 minutos exclusivos a ${lowestArea.description.toLowerCase()}.
+            `;
+        }
+
+        function updateStatsIfOpen() {
+            if (document.getElementById('statsModal').classList.contains('active')) {
+                renderStats();
+            }
+        }
+
+        // Reminders
+        function openReminders() {
+            document.getElementById('remindersModal').classList.add('active');
+            renderReminders();
+        }
+
+        function closeReminders() {
+            document.getElementById('remindersModal').classList.remove('active');
+        }
+
+        function addReminder() {
+            const time = document.getElementById('reminderTime').value;
+            const text = document.getElementById('reminderText').value.trim();
+            
+            if (!text) {
+                alert('Por favor escribe un texto para el recordatorio');
+                return;
+            }
+            
+            appData.reminders.push({ time, text, id: Date.now() });
+            document.getElementById('reminderText').value = '';
+            renderReminders();
+        }
+
+        function deleteReminder(id) {
+            appData.reminders = appData.reminders.filter(r => r.id !== id);
+            renderReminders();
+        }
+
+        function renderReminders() {
+            const list = document.getElementById('reminderList');
+            
+            if (appData.reminders.length === 0) {
+                list.innerHTML = '<li style="padding: 20px; text-align: center; color: #94A3B8;">No hay recordatorios. Agrega uno arriba.</li>';
+                return;
+            }
+            
+            list.innerHTML = appData.reminders.map(r => `
+                <li class="reminder-item">
+                    <div>
+                        <strong style="color: #A78BFA;">${r.time}</strong> - ${r.text}
+                    </div>
+                    <button class="reminder-delete" onclick="deleteReminder(${r.id})">Eliminar</button>
+                </li>
+            `).join('');
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            const body = document.body;
+            const toggle = document.querySelector('.theme-toggle');
+            
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                toggle.textContent = '🌙';
+                appData.theme = 'dark';
+            } else {
+                body.classList.add('light-mode');
+                toggle.textContent = '☀️';
+                appData.theme = 'light';
+            }
+        }
+
+        // Initialize
+        initApp();
+    </script>
+</body>
+</html>
