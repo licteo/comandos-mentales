@@ -6,7 +6,6 @@
     <meta name="theme-color" content="#4F46E5">
     <meta name="description" content="Inteligencia espiritual y mental avanzada para coherencia integral">
     <title>Coherencia Integrada</title>
-    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQ29oZXJlbmNpYSBJbnRlZ3JhZGEiLCJzaG9ydF9uYW1lIjoiQ29oZXJlbmNpYSIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMEYxNzJBIiwidGhlbWVfY29sb3IiOiIjNEY0NkU1IiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCclM0UlM0NjaXJjbGUgY3g9JzUwJyBjeT0nNTAnIHI9JzQ1JyBmaWxsPSclMjM0RjQ2RTUnLyUzRSUzQ3RleHQgeD0nNTAlMjcgeT0nNTUlMjcgZm9udC1zaXplPSc0MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nd2hpdGUnJTNFJUYwJTlGJUE3JUEwJTNDL3RleHQlM0UlM0Mvc3ZnJTNFIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwiLCJzaXplcyI6IjE5MngxOTIifV19">
     <style>
         * {
             margin: 0;
@@ -53,10 +52,9 @@
             font-size: 1.1rem;
         }
 
-        .theme-toggle {
+        .theme-toggle, .tutorial-btn {
             position: fixed;
             top: 20px;
-            right: 20px;
             z-index: 1000;
             background: rgba(79, 70, 229, 0.3);
             border: 2px solid #4F46E5;
@@ -71,9 +69,24 @@
             transition: all 0.3s ease;
         }
 
+        .theme-toggle {
+            right: 20px;
+        }
+
+        .tutorial-btn {
+            left: 20px;
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            border-color: #F59E0B;
+        }
+
         .theme-toggle:hover {
             transform: rotate(180deg);
             background: rgba(79, 70, 229, 0.5);
+        }
+
+        .tutorial-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(245, 158, 11, 0.6);
         }
 
         .areas-grid {
@@ -229,10 +242,6 @@
             box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
         }
 
-        .btn-analyze:active {
-            transform: translateY(0);
-        }
-
         .results-section {
             background: rgba(30, 41, 59, 0.8);
             border-radius: 15px;
@@ -261,6 +270,11 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
         }
 
         .command-box {
@@ -295,16 +309,6 @@
             background: rgba(15, 23, 42, 0.6);
             border-radius: 8px;
             border-left: 3px solid var(--color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .actions-list li::before {
-            content: '▸';
-            color: var(--color);
-            font-size: 1.2rem;
-            flex-shrink: 0;
         }
 
         .coherence-indicator {
@@ -423,6 +427,8 @@
             max-width: 700px;
             width: 100%;
             border: 1px solid rgba(139, 92, 246, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal h2 {
@@ -443,9 +449,25 @@
             margin-bottom: 10px;
         }
 
-        .modal-input textarea {
+        .modal-input textarea, .modal-input input, .modal-input select {
             width: 100%;
+            padding: 12px 15px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            color: #F1F5F9;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .modal-input textarea {
             min-height: 80px;
+            resize: vertical;
+        }
+
+        .modal-input input:focus, .modal-input textarea:focus, .modal-input select:focus {
+            outline: none;
+            border-color: #8B5CF6;
         }
 
         .modal-buttons {
@@ -488,7 +510,6 @@
 
         .meditation-container {
             text-align: center;
-            max-width: 600px;
             padding: 40px;
         }
 
@@ -539,13 +560,6 @@
             font-weight: bold;
         }
 
-        .stat-subtitle {
-            color: var(--color);
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
         .reminder-section {
             background: rgba(15, 23, 42, 0.6);
             padding: 20px;
@@ -557,21 +571,12 @@
             display: flex;
             gap: 10px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
 
         .reminder-input input {
             flex: 1;
-            padding: 10px 15px;
-            background: rgba(30, 41, 59, 0.8);
-            border: 2px solid rgba(139, 92, 246, 0.3);
-            border-radius: 8px;
-            color: #F1F5F9;
-            font-size: 1rem;
-        }
-
-        .reminder-input input:focus {
-            outline: none;
-            border-color: #8B5CF6;
+            min-width: 150px;
         }
 
         .reminder-list {
@@ -587,6 +592,8 @@
             background: rgba(30, 41, 59, 0.6);
             border-radius: 8px;
             margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .reminder-delete {
@@ -625,15 +632,57 @@
             background-clip: text;
         }
 
-        body.light-mode textarea {
+        body.light-mode textarea, 
+        body.light-mode .modal-input input,
+        body.light-mode .modal-input select {
             background: rgba(241, 245, 249, 0.8);
             color: #1E293B;
-            border-color: rgba(79, 70, 229, 0.3);
         }
 
         body.light-mode .command-text,
         body.light-mode .area-title {
             color: #1E293B;
+        }
+
+        #tutorialOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: none;
+            pointer-events: none;
+        }
+
+        #tutorialOverlay.active {
+            display: block;
+        }
+
+        #tutorialHighlight {
+            position: absolute;
+            border: 3px solid #F59E0B;
+            border-radius: 10px;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7), 0 0 30px #F59E0B;
+            transition: all 0.5s ease;
+            pointer-events: none;
+        }
+
+        #tutorialTooltip {
+            position: absolute;
+            background: linear-gradient(135deg, #1E293B, #334155);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #F59E0B;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
+        }
+
+        #tutorialTooltipContent {
+            color: #F1F5F9;
+            line-height: 1.6;
         }
 
         @media (max-width: 768px) {
@@ -658,11 +707,23 @@
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .tutorial-btn, .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="theme-toggle" onclick="toggleTheme()">🌙</div>
+    
+    <button class="tutorial-btn" onclick="startTutorial()">📚</button>
 
     <div class="container">
         <div class="header">
@@ -702,7 +763,7 @@
                 <ul class="actions-list" id="actionsList"></ul>
             </div>
 
-            <div class="coherence-indicator" id="coherenceIndicator">
+            <div class="coherence-indicator">
                 <div class="coherence-circle" id="coherenceCircle">
                     <span>0%</span>
                 </div>
@@ -738,7 +799,7 @@
         </button>
         <button class="tool-btn" onclick="openAffirmations()">
             <span>🗣️</span>
-            <span>Comandos Verbales</span>
+            <span>Comandos</span>
         </button>
     </div>
 
@@ -818,6 +879,82 @@
         </div>
     </div>
 
+    <!-- Modal Comandos Verbales -->
+    <div class="modal" id="affirmationsModal">
+        <div class="modal-content" style="max-width: 900px;">
+            <h2>🗣️ Comandos Verbales de Coherencia</h2>
+            
+            <div style="background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(139, 92, 246, 0.2)); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+                <h3 style="color: #A78BFA; margin-bottom: 10px;">💡 Fórmula para Crear Comandos Poderosos</h3>
+                <p style="color: #E2E8F0; line-height: 1.6; margin-bottom: 15px;">
+                    <strong>Estructura:</strong> [ORDEN DIRECTA] + [ESTADO DESEADO] + [TIEMPO PRESENTE] + [AUTORIDAD]
+                </p>
+                <div style="background: rgba(15, 23, 42, 0.6); padding: 15px; border-radius: 8px; font-family: monospace; color: #A78BFA;">
+                    "Mi [sistema/cuerpo/mente] AHORA [acción específica]. Esto es [verdad absoluta]. Así es."
+                </div>
+                <p style="color: #CBD5E1; margin-top: 10px; font-size: 0.95rem;">
+                    <strong>Claves:</strong> Tiempo presente, autoridad declarativa, específico, sin negaciones
+                </p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: #A78BFA; margin-bottom: 15px;">📋 Comandos por Área</h3>
+                <div id="affirmationsGrid" style="display: grid; gap: 15px;"></div>
+            </div>
+
+            <div class="reminder-section">
+                <h3 style="color: #A78BFA; margin-bottom: 15px;">➕ Crear Comando Personalizado</h3>
+                <div style="margin-bottom: 15px;">
+                    <label style="color: #CBD5E1; display: block; margin-bottom: 8px;">Área:</label>
+                    <select id="customCommandArea" style="width: 100%; padding: 12px; background: rgba(15, 23, 42, 0.8); border: 2px solid rgba(139, 92, 246, 0.3); border-radius: 8px; color: #F1F5F9; font-size: 1rem;">
+                        <option value="spiritual">🕉️ Espiritual</option>
+                        <option value="health">💪 Cuerpo/Salud</option>
+                        <option value="family">👨‍👩‍👧 Familia</option>
+                        <option value="career">💼 Profesión/Finanzas</option>
+                        <option value="study">📚 Estudio Personal</option>
+                        <option value="recreation">🎨 ReCreación</option>
+                        <option value="home">🏡 Casa/Espacio</option>
+                        <option value="social">🤝 Social/Relaciones</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="color: #CBD5E1; display: block; margin-bottom: 8px;">Tu Comando Verbal:</label>
+                    <textarea id="customCommandText" placeholder="Ejemplo: Mi cuerpo AHORA libera toda tensión acumulada. Cada célula se relaja y regenera. Esto es verdad. Así es." style="width: 100%; min-height: 100px;"></textarea>
+                </div>
+                <button class="btn-primary" onclick="addCustomCommand()">➕ Agregar Comando</button>
+            </div>
+            
+            <button class="btn-secondary" style="width: 100%; margin-top: 20px;" onclick="closeAffirmations()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Modal Tutorial -->
+    <div class="modal" id="tutorialModal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div id="tutorialContent"></div>
+            <div style="display: flex; gap: 15px; margin-top: 30px; justify-content: space-between; flex-wrap: wrap;">
+                <button class="btn-secondary" id="tutorialPrev" onclick="prevTutorialStep()" style="display: none;">← Anterior</button>
+                <button class="btn-primary" id="tutorialNext" onclick="nextTutorialStep()">Siguiente →</button>
+                <button class="btn-secondary" onclick="closeTutorial()">Salir</button>
+            </div>
+            <div style="text-align: center; margin-top: 15px; color: #94A3B8;">
+                <span id="tutorialProgress"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay Tutorial Interactivo -->
+    <div id="tutorialOverlay">
+        <div id="tutorialHighlight"></div>
+        <div id="tutorialTooltip">
+            <div id="tutorialTooltipContent"></div>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button onclick="skipTutorial()" style="flex: 1; padding: 10px; background: rgba(239, 68, 68, 0.2); border: 2px solid #EF4444; color: #EF4444; border-radius: 8px; cursor: pointer;">Saltar</button>
+                <button onclick="nextInteractiveTutorial()" style="flex: 2; padding: 10px; background: linear-gradient(135deg, #F59E0B, #D97706); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Entendido →</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Data structure
         const appData = {
@@ -833,19 +970,189 @@
             ],
             reminders: [],
             journalEntries: [],
-            theme: 'dark'
+            theme: 'dark',
+            verbalCommands: {
+                spiritual: [
+                    "Mi conciencia AHORA se expande hacia mi propósito más elevado. Estoy alineado con mi verdad interior. Así es.",
+                    "Cada respiración me conecta con la fuente infinita de sabiduría. Soy guía de mi propio camino. Esto es verdad.",
+                    "Mi espíritu se eleva por encima de la ilusión. Veo con claridad mi misión en este momento. Así es."
+                ],
+                health: [
+                    "Mi cuerpo AHORA libera toda tensión acumulada. Cada célula se relaja y regenera. Esto es verdad. Así es.",
+                    "Mi energía vital fluye libremente por todo mi ser. Soy fuerza, soy vitalidad, soy salud perfecta. Así es.",
+                    "Ordeno a mi sistema nervioso: CALMA TOTAL. Mi cuerpo obedece. Estoy en equilibrio perfecto. Así es."
+                ],
+                family: [
+                    "Mi amor fluye sin obstáculos hacia mis seres queridos. Soy presencia pura para mi familia. Así es.",
+                    "Cada palabra que pronuncio fortalece los vínculos sagrados. Soy ancla de paz en mi hogar. Esto es verdad.",
+                    "Mi corazón AHORA se abre completamente. Doy y recibo amor sin condiciones. Así es."
+                ],
+                career: [
+                    "Mi valor se multiplica en cada acción que tomo. Soy abundancia generando abundancia. Así es.",
+                    "Cada proyecto que toco se transforma en éxito. Mis recursos se expanden constantemente. Esto es verdad.",
+                    "Mi trabajo AHORA sirve al mundo y me retorna prosperidad. Soy creador de valor infinito. Así es."
+                ],
+                study: [
+                    "Mi mente AHORA absorbe conocimiento como esponja en agua. Aprendo con facilidad y gozo. Así es.",
+                    "Cada concepto que estudio se integra perfectamente en mi sabiduría. Soy estudiante maestro. Esto es verdad.",
+                    "Mi capacidad de aprender se expande sin límites. Soy mente brillante en evolución constante. Así es."
+                ],
+                recreation: [
+                    "Ahora me permito disfrutar plenamente este momento. Soy merecedor de placer y descanso. Así es.",
+                    "Mi creatividad fluye sin esfuerzo. Soy expresión pura de alegría y renovación. Esto es verdad.",
+                    "Cada instante de juego recarga mi alma. Soy ser en balance perfecto entre acción y reposo. Así es."
+                ],
+                home: [
+                    "Mi espacio AHORA refleja la claridad de mi mente. Orden externo, orden interno. Así es.",
+                    "Cada objeto en mi hogar tiene su lugar perfecto. Soy arquitecto de mi santuario personal. Esto es verdad.",
+                    "Mi ambiente me nutre y sostiene. Soy creador de espacios de poder y paz. Así es."
+                ],
+                social: [
+                    "Atraigo personas que elevan mi frecuencia. Soy imán de relaciones auténticas y valiosas. Así es.",
+                    "Mi comunicación AHORA es clara, compasiva y poderosa. Soy puente entre corazones. Esto es verdad.",
+                    "Cada conexión que hago enriquece mi vida y la del otro. Soy red de apoyo y crecimiento mutuo. Así es."
+                ]
+            },
+            customCommands: {},
+            tutorialCompleted: false,
+            currentTutorialStep: 0
         };
+
+        // Tutorial Steps
+        const tutorialSteps = [
+            {
+                title: "🎯 Bienvenido al Sistema de Coherencia Integrada",
+                content: `
+                    <h3 style="color: #A78BFA; margin-bottom: 15px;">¿Qué es esta herramienta?</h3>
+                    <p style="color: #E2E8F0; line-height: 1.8; margin-bottom: 15px;">
+                        Esta es tu <strong>inteligencia artificial personal</strong> que traduce tus pensamientos y emociones en 
+                        <strong>comandos claros y accionables</strong> para tu cerebro, cuerpo y energía vital.
+                    </p>
+                    <div style="background: rgba(79, 70, 229, 0.2); padding: 15px; border-radius: 10px; border-left: 4px solid #8B5CF6; margin: 15px 0;">
+                        <strong style="color: #A78BFA;">🎯 Objetivo Principal:</strong><br>
+                        <span style="color: #CBD5E1;">Ayudarte a pensar, sentir y actuar con coherencia, alineando tu conciencia con tu cuerpo, emociones, decisiones y entorno.</span>
+                    </div>
+                    <p style="color: #94A3B8; margin-top: 15px;">
+                        La app funciona en <strong>8 áreas de vida</strong> y genera análisis personalizados según tu estado actual.
+                    </p>
+                `
+            },
+            {
+                title: "🎨 Las 8 Áreas de Vida",
+                content: `
+                    <h3 style="color: #A78BFA; margin-bottom: 15px;">Tu Sistema de Coherencia Integral</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0;">
+                        <div style="background: rgba(139, 92, 246, 0.2); padding: 12px; border-radius: 8px; border-left: 3px solid #8B5CF6;">
+                            <strong style="color: #8B5CF6;">🕉️ Espiritual</strong><br>
+                            <span style="color: #CBD5E1; font-size: 0.9rem;">Propósito, valores</span>
+                        </div>
+                        <div style="background: rgba(16, 185, 129, 0.2); padding: 12px; border-radius: 8px; border-left: 3px solid #10B981;">
+                            <strong style="color: #10B981;">💪 Salud</strong><br>
+                            <span style="color: #CBD5E1; font-size: 0.9rem;">Energía, nutrición</span>
+                        </div>
+                        <div style="background: rgba(245, 158, 11, 0.2); padding: 12px; border-radius: 8px; border-left: 3px solid #F59E0B;">
+                            <strong style="color: #F59E0B;">👨‍👩‍👧 Familia</strong><br>
+                            <span style="color: #CBD5E1; font-size: 0.9rem;">Vínculos, amor</span>
+                        </div>
+                        <div style="background: rgba(59, 130, 246, 0.2); padding: 12px; border-radius: 8px; border-left: 3px solid #3B82F6;">
+                            <strong style="color: #3B82F6;">💼 Profesión</strong><br>
+                            <span style="color: #CBD5E1; font-size: 0.9rem;">Recursos, aporte</span>
+                        </div>
+                        <div style="background: rgba(6, 182, 212, 0.2); padding: 12px; border-radius: 8px; border-left: 3px solid #06B6D4;">
+                            <strong style="color: #06B6D4;">📚 Estudio</strong><br>
+                            <span style="color: #CBD5E1; font-size: 0.9rem;">Aprendizaje</span>
+                        </div>
+                        <div style="background: rgba(236, 72, 153, 0.2); padding: 12px; border-radius: 8px; border-left: 3px solid #EC4899;">
+                            <strong style="color: #EC4899;">🎨 ReCreación</strong><br>
+                            <span style="color: #CBD5E1; font-size: 0.9rem;">Disfrute</span>
+                        </div>
+                        <div style="background: rgba(132, 204, 22, 0.2); padding: 12px; border-radius: 8px; border-left: 3px solid #84CC16;">
+                            <strong style="color: #84CC16;">🏡 Casa</strong><br>
+                            <span style="color: #CBD5E1; font-size: 0.9rem;">Orden físico</span>
+                        </div>
+                        <div style="background: rgba(249, 115, 22, 0.2); padding: 12px; border-radius: 8px; border-left: 3px solid #F97316;">
+                            <strong style="color: #F97316;">🤝 Social</strong><br>
+                            <span style="color: #CBD5E1; font-size: 0.9rem;">Comunidad</span>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "📝 Cómo Usar la App",
+                content: `
+                    <h3 style="color: #A78BFA; margin-bottom: 15px;">Flujo Diario Recomendado</h3>
+                    <div style="background: rgba(15, 23, 42, 0.6); padding: 20px; border-radius: 10px;">
+                        <ol style="color: #E2E8F0; line-height: 2; padding-left: 20px;">
+                            <li><strong style="color: #A78BFA;">Ajusta niveles</strong> - Usa los botones +5/-5 en cada área</li>
+                            <li><strong style="color: #A78BFA;">Escribe tu estado</strong> - Pensamientos, emociones, decisiones</li>
+                            <li><strong style="color: #A78BFA;">Recibe comandos</strong> - El sistema analiza y te da acciones</li>
+                            <li><strong style="color: #A78BFA;">Usa las herramientas</strong> - Meditación, Diario, Estadísticas</li>
+                            <li><strong style="color: #A78BFA;">Pronuncia comandos</strong> - Activa tu sistema con voz</li>
+                        </ol>
+                    </div>
+                `
+            },
+            {
+                title: "🚀 ¡Comienza Ahora!",
+                content: `
+                    <h3 style="color: #A78BFA; margin-bottom: 20px; text-align: center;">Tu Primera Acción</h3>
+                    <div style="background: linear-gradient(135deg, rgba(79, 70, 229, 0.3), rgba(139, 92, 246, 0.3)); padding: 25px; border-radius: 15px; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">🎯</div>
+                        <p style="color: #E2E8F0; font-size: 1.2rem; margin-bottom: 20px;">
+                            <strong>Escribe en el campo de texto:</strong>
+                        </p>
+                        <div style="background: rgba(15, 23, 42, 0.8); padding: 20px; border-radius: 10px; border: 2px solid #8B5CF6;">
+                            <p style="color: #A78BFA; font-size: 1.3rem; font-style: italic;">
+                                "¿Qué necesito atender hoy?"
+                            </p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <p style="color: #8B5CF6; font-size: 1.3rem; font-weight: 600;">
+                            ¡Estás listo! 🚀
+                        </p>
+                    </div>
+                `
+            }
+        ];
+
+        // Interactive Tutorial Steps
+        const interactiveTutorialSteps = [
+            {
+                target: '.areas-grid',
+                title: 'Las 8 Áreas de Vida',
+                content: 'Ajusta el nivel de cada área con los botones +5/-5 según tu estado actual.',
+                position: 'bottom'
+            },
+            {
+                target: '#userInput',
+                title: 'Comparte tu Estado',
+                content: 'Escribe aquí tus pensamientos o emociones para recibir comandos específicos.',
+                position: 'top'
+            },
+            {
+                target: '.tools-panel',
+                title: 'Herramientas Principales',
+                content: 'Explora las 5 herramientas: Meditación, Diario, Estadísticas, Recordatorios y Comandos.',
+                position: 'left'
+            }
+        ];
 
         // Initialize app
         function initApp() {
-            loadData();
             renderAreas();
-            updateStatsIfOpen();
-        }
-
-        // Load data from memory
-        function loadData() {
-            // Data persists in memory during session
+            
+            // Show tutorial on first visit
+            setTimeout(() => {
+                if (!appData.tutorialCompleted) {
+                    const showTutorial = confirm('👋 ¿Es tu primera vez?\n\n¿Quieres ver el tutorial rápido?');
+                    if (showTutorial) {
+                        startTutorial();
+                    } else {
+                        appData.tutorialCompleted = true;
+                    }
+                }
+            }, 1000);
         }
 
         // Render areas
@@ -885,7 +1192,9 @@
         function adjustLevel(index, delta) {
             appData.areas[index].level = Math.max(0, Math.min(100, appData.areas[index].level + delta));
             renderAreas();
-            updateStatsIfOpen();
+            if (document.getElementById('statsModal').classList.contains('active')) {
+                renderStats();
+            }
         }
 
         // Quick fill
@@ -922,59 +1231,10 @@
                 diagnosis = 'Detectado: Sistema nervioso activado, desalineación mente-cuerpo, necesidad de regulación inmediata.';
                 command = 'COMANDO PRIORITARIO: Activar protocolo de regulación nerviosa. Respiración consciente → Movimiento suave → Reconexión con el momento presente.';
                 actions = [
-                    { area: 'health', text: 'Ejecutar 5 respiraciones profundas (4-7-8): inhala 4 seg, sostén 7 seg, exhala 8 seg', color: '#10B981' },
-                    { area: 'spiritual', text: 'Anclar atención en el ahora: nombrar 3 cosas que ves, 2 que sientes físicamente, 1 que escuchas', color: '#8B5CF6' },
-                    { area: 'recreation', text: 'Pausar 10 minutos sin pantallas: caminar, estirarte o cerrar ojos', color: '#EC4899' }
+                    { area: 'health', text: 'Check corporal: ¿Qué necesita tu cuerpo HOY? Dáselo', color: '#10B981' },
+                    { area: 'career', text: 'Definir "victoria del día": ¿Cuál es la UNA cosa que si logro, haré que hoy valga la pena?', color: '#3B82F6' }
                 ];
-                verification = 'Sabrás que funcionó cuando: tu respiración se vuelva más lenta y profunda naturalmente, sientas tus pies firmemente en el suelo, y puedas identificar una prioridad clara para las próximas 2 horas.';
-            }
-            else if (lowerInput.includes('disperso') || lowerInput.includes('sin dirección') || lowerInput.includes('perdid')) {
-                affectedAreas = ['spiritual', 'career', 'study'];
-                coherenceLevel = 35;
-                diagnosis = 'Detectado: Desconexión con propósito central, energía fragmentada en múltiples direcciones sin jerarquía clara.';
-                command = 'COMANDO PRIORITARIO: Restablecer claridad de propósito. Pregunta central → Eliminar lo no esencial → Definir siguiente acción concreta.';
-                actions = [
-                    { area: 'spiritual', text: 'Responder por escrito: "Si solo pudiera lograr UNA cosa esta semana que me haga sentir alineado, ¿cuál sería?"', color: '#8B5CF6' },
-                    { area: 'career', text: 'Identificar las 3 tareas que realmente mueven la aguja en tu trabajo/proyecto. Eliminar o delegar el resto', color: '#3B82F6' },
-                    { area: 'study', text: 'Elegir UN tema de aprendizaje por 21 días. Desactivar todas las demás notificaciones de cursos/contenidos', color: '#06B6D4' }
-                ];
-                verification = 'Sabrás que funcionó cuando: puedas decir en una frase qué es lo más importante ahora, sientas alivio al decir "no" a lo secundario, y tengas una acción física agendada para hoy.';
-            }
-            else if (lowerInput.includes('decisión') || lowerInput.includes('decidir') || lowerInput.includes('elección')) {
-                affectedAreas = ['spiritual', 'career', 'family'];
-                coherenceLevel = 50;
-                diagnosis = 'Detectado: Momento de bifurcación. Necesidad de alinear valores profundos con elección práctica.';
-                command = 'COMANDO PRIORITARIO: Activar claridad decisional. Conectar con valores → Proyectar escenarios → Sentir la respuesta corporal.';
-                actions = [
-                    { area: 'spiritual', text: 'Escribir: "Mis 3 valores no negociables son..." y verificar qué opción los honra mejor', color: '#8B5CF6' },
-                    { area: 'career', text: 'Visualizar: ¿Cómo me siento dentro de 1 año si elijo la opción A? ¿Y con la opción B? Nota las sensaciones físicas', color: '#3B82F6' },
-                    { area: 'family', text: 'Consultar: ¿Esta decisión fortalece o debilita mis vínculos importantes? Conversar con 1 persona clave', color: '#F59E0B' }
-                ];
-                verification = 'Sabrás que funcionó cuando: sientas claridad visceral (no solo mental), puedas explicar tu decisión en 2 frases simples, y experimentes paz corporal al imaginarte siguiendo ese camino.';
-            }
-            else if (lowerInput.includes('energía') || lowerInput.includes('cansad') || lowerInput.includes('agotad')) {
-                affectedAreas = ['health', 'recreation', 'home'];
-                coherenceLevel = 30;
-                diagnosis = 'Detectado: Batería vital baja. Desequilibrio entre gasto y recuperación energética. Necesidad de recarga inmediata.';
-                command = 'COMANDO PRIORITARIO: Restaurar reservas vitales. Descanso de calidad → Nutrición consciente → Eliminación de vampiros energéticos.';
-                actions = [
-                    { area: 'health', text: 'Hoy: dormir 30 minutos extra, hidratación consciente (2L agua), comida con proteína y vegetales verdes', color: '#10B981' },
-                    { area: 'recreation', text: 'Agendar en calendario: 1 hora esta semana SOLO para ti, sin obligaciones ni pantallas. No negociable', color: '#EC4899' },
-                    { area: 'home', text: 'Identificar 3 "vampiros energéticos" en tu espacio (desorden, tareas pendientes, objetos rotos) y eliminar UNO hoy', color: '#84CC16' }
-                ];
-                verification = 'Sabrás que funcionó cuando: puedas completar una tarea sin esfuerzo excesivo, tu cuerpo pida menos estimulantes (café, azúcar), y sientas curiosidad natural por algo (señal de energía disponible).';
-            }
-            else if (lowerInput.includes('atender hoy') || lowerInput.includes('prioridad')) {
-                affectedAreas = ['spiritual', 'health', 'career'];
-                coherenceLevel = 60;
-                diagnosis = 'Detectado: Búsqueda de orientación diaria. Sistema listo para recibir instrucciones de alto nivel.';
-                command = 'COMANDO PRIORITARIO: Establecer intención clara para las próximas 24h. Alinear con energía disponible → Definir victoria del día.';
-                actions = [
-                    { area: 'spiritual', text: 'Pregunta matutina: "¿Qué versión de mí quiero ser hoy?" Elige 3 cualidades (ej: presente, compasivo, enfocado)', color: '#8B5CF6' },
-                    { area: 'health', text: 'Check corporal: ¿Qué necesita tu cuerpo HOY? (movimiento, descanso, nutrición, contacto físico) Dáselo', color: '#10B981' },
-                    { area: 'career', text: 'Definir "victoria del día": ¿Cuál es la UNA cosa que si logro, haré que este día valga la pena?', color: '#3B82F6' }
-                ];
-                verification = 'Sabrás que funcionó cuando: al final del día puedas decir "hice lo importante", sientas satisfacción (no agotamiento), y estés en paz con lo que quedó pendiente.';
+                verification = 'Sabrás que funcionó cuando: al final del día puedas decir "hice lo importante", sientas satisfacción y estés en paz con lo pendiente.';
             }
             else {
                 affectedAreas = ['spiritual', 'health', 'study'];
@@ -982,11 +1242,11 @@
                 diagnosis = 'Detectado: Búsqueda de claridad general. Sistema disponible para optimización global.';
                 command = 'COMANDO PRIORITARIO: Escaneo completo del sistema. Identificar área de mayor desbalance → Aplicar micro-ajuste inmediato.';
                 actions = [
-                    { area: 'spiritual', text: 'Revisar cada área de vida del 1-10: ¿Cuál tiene el número más bajo? Esa es tu prioridad hoy', color: '#8B5CF6' },
-                    { area: 'health', text: 'Protocolo básico: 20 min movimiento + 7h sueño + hidratación. ¿Qué falta? Integrarlo hoy', color: '#10B981' },
-                    { area: 'study', text: 'Leer o escuchar durante 15 min algo que te expanda (libro, podcast, conversación profunda)', color: '#06B6D4' }
+                    { area: 'spiritual', text: 'Revisar cada área del 1-10: ¿Cuál tiene el número más bajo? Esa es tu prioridad', color: '#8B5CF6' },
+                    { area: 'health', text: 'Protocolo básico: 20 min movimiento + 7h sueño + hidratación', color: '#10B981' },
+                    { area: 'study', text: 'Leer 15 min algo que te expanda (libro, podcast, conversación)', color: '#06B6D4' }
                 ];
-                verification = 'Sabrás que funcionó cuando: identifiques tu mayor palanca de cambio, hayas dado un paso concreto en esa área, y sientas momentum renovado.';
+                verification = 'Sabrás que funcionó cuando: identifiques tu mayor palanca de cambio, hayas dado un paso concreto y sientas momentum renovado.';
             }
 
             return { affectedAreas, coherenceLevel, diagnosis, command, actions, verification };
@@ -1003,7 +1263,26 @@
             analysis.actions.forEach(action => {
                 const li = document.createElement('li');
                 li.style.setProperty('--color', action.color);
-                li.textContent = action.text;
+                
+                const area = appData.areas.find(a => a.color === action.color);
+                const commands = [
+                    ...(appData.verbalCommands[area.id] || []),
+                    ...(appData.customCommands[area.id] || [])
+                ];
+                const randomCommand = commands.length > 0 ? commands[Math.floor(Math.random() * commands.length)] : null;
+                
+                li.innerHTML = `
+                    <div style="flex: 1;">
+                        ${action.text}
+                        ${randomCommand ? `
+                            <div style="margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 6px; font-size: 0.95rem; font-style: italic; color: #CBD5E1;">
+                                <strong style="color: ${action.color};">🗣️ Comando verbal:</strong><br>
+                                "${randomCommand}"
+                                <button onclick="speakCommand(\`${randomCommand.replace(/`/g, '\\`').replace(/"/g, '&quot;')}\`)" style="margin-top: 8px; padding: 6px 12px; background: ${action.color}; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem;">🔊 Pronunciar</button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
                 actionsList.appendChild(li);
             });
 
@@ -1103,7 +1382,7 @@
                 
                 appData.journalEntries.push(entry);
                 
-                alert('✅ Entrada guardada en tu diario de coherencia\n\n"Lo que reconoces, crece."');
+                alert('✅ Entrada guardada\n\n"Lo que reconoces, crece."');
                 
                 document.getElementById('gratitude').value = '';
                 document.getElementById('learning').value = '';
@@ -1111,7 +1390,7 @@
                 
                 closeJournal();
             } else {
-                alert('Escribe al menos en uno de los campos para guardar tu reflexión.');
+                alert('Escribe al menos en uno de los campos.');
             }
         }
 
@@ -1139,13 +1418,13 @@
                 
                 <div class="stat-card" style="--color: #10B981;">
                     <div class="stat-label">Área más fuerte</div>
-                    <div class="stat-subtitle">${highestArea.icon} ${highestArea.title}</div>
+                    <div style="color: #10B981; font-size: 1.2rem; font-weight: bold; margin-top: 5px;">${highestArea.icon} ${highestArea.title}</div>
                     <div class="stat-value" style="font-size: 1.5rem; margin-top: 5px;">${highestArea.level}%</div>
                 </div>
                 
                 <div class="stat-card" style="--color: #F59E0B;">
                     <div class="stat-label">Necesita atención</div>
-                    <div class="stat-subtitle">${lowestArea.icon} ${lowestArea.title}</div>
+                    <div style="color: #F59E0B; font-size: 1.2rem; font-weight: bold; margin-top: 5px;">${lowestArea.icon} ${lowestArea.title}</div>
                     <div class="stat-value" style="font-size: 1.5rem; margin-top: 5px;">${lowestArea.level}%</div>
                 </div>
             `;
@@ -1157,12 +1436,6 @@
                 <br><br>
                 <strong>Acción micro hoy:</strong> Dedica 15 minutos exclusivos a ${lowestArea.description.toLowerCase()}.
             `;
-        }
-
-        function updateStatsIfOpen() {
-            if (document.getElementById('statsModal').classList.contains('active')) {
-                renderStats();
-            }
         }
 
         // Reminders
@@ -1180,7 +1453,7 @@
             const text = document.getElementById('reminderText').value.trim();
             
             if (!text) {
-                alert('Por favor escribe un texto para el recordatorio');
+                alert('Por favor escribe un texto');
                 return;
             }
             
@@ -1198,7 +1471,7 @@
             const list = document.getElementById('reminderList');
             
             if (appData.reminders.length === 0) {
-                list.innerHTML = '<li style="padding: 20px; text-align: center; color: #94A3B8;">No hay recordatorios. Agrega uno arriba.</li>';
+                list.innerHTML = '<li style="padding: 20px; text-align: center; color: #94A3B8;">No hay recordatorios.</li>';
                 return;
             }
             
@@ -1210,6 +1483,146 @@
                     <button class="reminder-delete" onclick="deleteReminder(${r.id})">Eliminar</button>
                 </li>
             `).join('');
+        }
+
+        // Affirmations
+        function openAffirmations() {
+            document.getElementById('affirmationsModal').classList.add('active');
+            renderAffirmations();
+        }
+
+        function closeAffirmations() {
+            document.getElementById('affirmationsModal').classList.remove('active');
+        }
+
+        function renderAffirmations() {
+            const grid = document.getElementById('affirmationsGrid');
+            grid.innerHTML = '';
+
+            appData.areas.forEach(area => {
+                const commands = [
+                    ...(appData.verbalCommands[area.id] || []),
+                    ...(appData.customCommands[area.id] || [])
+                ];
+
+                if (commands.length === 0) return;
+
+                const card = document.createElement('div');
+                card.style.cssText = `
+                    background: rgba(15, 23, 42, 0.6);
+                    padding: 20px;
+                    border-radius: 12px;
+                    border-left: 4px solid ${area.color};
+                `;
+
+                card.innerHTML = `
+                    <h4 style="color: ${area.color}; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 1.5rem;">${area.icon}</span>
+                        <span>${area.title}</span>
+                    </h4>
+                    ${commands.map((cmd, idx) => {
+                        const isCustom = idx >= 3;
+                        const escapedCmd = cmd.replace(/`/g, '\\`').replace(/"/g, '&quot;');
+                        return `
+                        <div style="background: rgba(30, 41, 59, 0.8); padding: 15px; border-radius: 8px; margin-bottom: 12px;">
+                            <p style="color: #E2E8F0; line-height: 1.6; margin-bottom: 10px; font-size: 1.05rem;">"${cmd}"</p>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button onclick="speakCommand(\`${escapedCmd}\`)" style="flex: 1; min-width: 120px; padding: 8px 15px; background: linear-gradient(135deg, ${area.color}, ${area.color}dd); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">
+                                    🔊 Pronunciar
+                                </button>
+                                <button onclick="copyCommand(\`${escapedCmd}\`)" style="padding: 8px 15px; background: rgba(79, 70, 229, 0.2); border: 2px solid ${area.color}; color: ${area.color}; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">
+                                    📋 Copiar
+                                </button>
+                                ${isCustom ? `<button onclick="deleteCustomCommand('${area.id}', ${idx - 3})" style="padding: 8px 15px; background: rgba(239, 68, 68, 0.2); border: 2px solid #EF4444; color: #EF4444; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">🗑️</button>` : ''}
+                            </div>
+                        </div>
+                    `}).join('')}
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function speakCommand(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'es-ES';
+                utterance.rate = 0.9;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+                
+                window.speechSynthesis.speak(utterance);
+                
+                showNotification('🔊 Pronunciando comando...', 'info');
+            } else {
+                alert('Tu navegador no soporta síntesis de voz.');
+            }
+        }
+
+        function copyCommand(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('✓ Comando copiado', 'success');
+            }).catch(() => {
+                alert('No se pudo copiar.');
+            });
+        }
+
+        function addCustomCommand() {
+            const area = document.getElementById('customCommandArea').value;
+            const text = document.getElementById('customCommandText').value.trim();
+            
+            if (!text) {
+                alert('Por favor escribe un comando');
+                return;
+            }
+            
+            if (!appData.customCommands[area]) {
+                appData.customCommands[area] = [];
+            }
+            
+            appData.customCommands[area].push(text);
+            document.getElementById('customCommandText').value = '';
+            renderAffirmations();
+            showNotification('✓ Comando agregado', 'success');
+        }
+
+        function deleteCustomCommand(areaId, index) {
+            if (confirm('¿Eliminar este comando?')) {
+                appData.customCommands[areaId].splice(index, 1);
+                renderAffirmations();
+            }
+        }
+
+        function showNotification(text, type) {
+            const colors = {
+                info: 'linear-gradient(135deg, #4F46E5, #8B5CF6)',
+                success: 'linear-gradient(135deg, #10B981, #059669)',
+                error: 'linear-gradient(135deg, #EF4444, #DC2626)'
+            };
+            
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${colors[type] || colors.info};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                font-size: 1rem;
+                z-index: 10000;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+                animation: fadeIn 0.3s ease;
+            `;
+            notification.textContent = text;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
         }
 
         // Theme toggle
@@ -1228,8 +1641,188 @@
             }
         }
 
+        // Tutorial Functions
+        function startTutorial() {
+            appData.currentTutorialStep = 0;
+            document.getElementById('tutorialModal').classList.add('active');
+            renderTutorialStep();
+        }
+
+        function closeTutorial() {
+            document.getElementById('tutorialModal').classList.remove('active');
+            appData.tutorialCompleted = true;
+        }
+
+        function nextTutorialStep() {
+            if (appData.currentTutorialStep < tutorialSteps.length - 1) {
+                appData.currentTutorialStep++;
+                renderTutorialStep();
+            } else {
+                closeTutorial();
+                setTimeout(() => {
+                    if (confirm('¿Quieres un recorrido visual interactivo?')) {
+                        startInteractiveTutorial();
+                    }
+                }, 500);
+            }
+        }
+
+        function prevTutorialStep() {
+            if (appData.currentTutorialStep > 0) {
+                appData.currentTutorialStep--;
+                renderTutorialStep();
+            }
+        }
+
+        function renderTutorialStep() {
+            const step = tutorialSteps[appData.currentTutorialStep];
+            const content = document.getElementById('tutorialContent');
+            
+            content.innerHTML = `
+                <h2 style="color: #A78BFA; font-size: 2rem; margin-bottom: 20px; text-align: center;">
+                    ${step.title}
+                </h2>
+                ${step.content}
+            `;
+
+            const prevBtn = document.getElementById('tutorialPrev');
+            const nextBtn = document.getElementById('tutorialNext');
+            
+            prevBtn.style.display = appData.currentTutorialStep === 0 ? 'none' : 'block';
+            nextBtn.textContent = appData.currentTutorialStep === tutorialSteps.length - 1 ? '✓ Finalizar' : 'Siguiente →';
+
+            const progress = document.getElementById('tutorialProgress');
+            progress.textContent = `Paso ${appData.currentTutorialStep + 1} de ${tutorialSteps.length}`;
+        }
+
+        // Interactive Tutorial
+        let currentInteractiveStep = 0;
+
+        function startInteractiveTutorial() {
+            currentInteractiveStep = 0;
+            showInteractiveStep();
+        }
+
+        function showInteractiveStep() {
+            if (currentInteractiveStep >= interactiveTutorialSteps.length) {
+                closeInteractiveTutorial();
+                return;
+            }
+
+            const step = interactiveTutorialSteps[currentInteractiveStep];
+            const overlay = document.getElementById('tutorialOverlay');
+            const highlight = document.getElementById('tutorialHighlight');
+            const tooltip = document.getElementById('tutorialTooltip');
+            const tooltipContent = document.getElementById('tutorialTooltipContent');
+
+            overlay.classList.add('active');
+
+            const target = document.querySelector(step.target);
+            if (!target) {
+                nextInteractiveTutorial();
+                return;
+            }
+
+            const rect = target.getBoundingClientRect();
+            highlight.style.left = rect.left - 10 + 'px';
+            highlight.style.top = rect.top - 10 + 'px';
+            highlight.style.width = rect.width + 20 + 'px';
+            highlight.style.height = rect.height + 20 + 'px';
+
+            tooltipContent.innerHTML = `
+                <h3 style="color: #F59E0B; margin-bottom: 10px; font-size: 1.2rem;">${step.title}</h3>
+                <p style="margin: 0;">${step.content}</p>
+            `;
+
+            let tooltipTop, tooltipLeft;
+            
+            switch(step.position) {
+                case 'bottom':
+                    tooltipTop = rect.bottom + 20;
+                    tooltipLeft = rect.left + (rect.width / 2) - 200;
+                    break;
+                case 'top':
+                    tooltipTop = rect.top - 200;
+                    tooltipLeft = rect.left + (rect.width / 2) - 200;
+                    break;
+                case 'left':
+                    tooltipTop = rect.top + (rect.height / 2) - 100;
+                    tooltipLeft = rect.left - 420;
+                    break;
+                default:
+                    tooltipTop = rect.bottom + 20;
+                    tooltipLeft = rect.left;
+            }
+
+            tooltip.style.top = Math.max(20, tooltipTop) + 'px';
+            tooltip.style.left = Math.max(20, Math.min(window.innerWidth - 420, tooltipLeft)) + 'px';
+        }
+
+        function nextInteractiveTutorial() {
+            currentInteractiveStep++;
+            showInteractiveStep();
+        }
+
+        function skipTutorial() {
+            closeInteractiveTutorial();
+        }
+
+        function closeInteractiveTutorial() {
+            document.getElementById('tutorialOverlay').classList.remove('active');
+            currentInteractiveStep = 0;
+        }
+
         // Initialize
         initApp();
     </script>
 </body>
-</html>
+</html>', text: 'Ejecutar 5 respiraciones profundas (4-7-8): inhala 4 seg, sostén 7 seg, exhala 8 seg', color: '#10B981' },
+                    { area: 'spiritual', text: 'Anclar atención en el ahora: nombrar 3 cosas que ves, 2 que sientes físicamente, 1 que escuchas', color: '#8B5CF6' },
+                    { area: 'recreation', text: 'Pausar 10 minutos sin pantallas: caminar, estirarte o cerrar ojos', color: '#EC4899' }
+                ];
+                verification = 'Sabrás que funcionó cuando: tu respiración se vuelva más lenta y profunda naturalmente, sientas tus pies firmemente en el suelo, y puedas identificar una prioridad clara para las próximas 2 horas.';
+            }
+            else if (lowerInput.includes('disperso') || lowerInput.includes('sin dirección') || lowerInput.includes('perdid')) {
+                affectedAreas = ['spiritual', 'career', 'study'];
+                coherenceLevel = 35;
+                diagnosis = 'Detectado: Desconexión con propósito central, energía fragmentada en múltiples direcciones sin jerarquía clara.';
+                command = 'COMANDO PRIORITARIO: Restablecer claridad de propósito. Pregunta central → Eliminar lo no esencial → Definir siguiente acción concreta.';
+                actions = [
+                    { area: 'spiritual', text: 'Responder por escrito: "Si solo pudiera lograr UNA cosa esta semana que me haga sentir alineado, ¿cuál sería?"', color: '#8B5CF6' },
+                    { area: 'career', text: 'Identificar las 3 tareas que realmente mueven la aguja en tu trabajo. Eliminar o delegar el resto', color: '#3B82F6' },
+                    { area: 'study', text: 'Elegir UN tema de aprendizaje por 21 días. Desactivar todas las demás notificaciones', color: '#06B6D4' }
+                ];
+                verification = 'Sabrás que funcionó cuando: puedas decir en una frase qué es lo más importante ahora, sientas alivio al decir "no" a lo secundario, y tengas una acción física agendada para hoy.';
+            }
+            else if (lowerInput.includes('decisión') || lowerInput.includes('decidir') || lowerInput.includes('elección')) {
+                affectedAreas = ['spiritual', 'career', 'family'];
+                coherenceLevel = 50;
+                diagnosis = 'Detectado: Momento de bifurcación. Necesidad de alinear valores profundos con elección práctica.';
+                command = 'COMANDO PRIORITARIO: Activar claridad decisional. Conectar con valores → Proyectar escenarios → Sentir la respuesta corporal.';
+                actions = [
+                    { area: 'spiritual', text: 'Escribir: "Mis 3 valores no negociables son..." y verificar qué opción los honra mejor', color: '#8B5CF6' },
+                    { area: 'career', text: 'Visualizar: ¿Cómo me siento dentro de 1 año con cada opción? Nota las sensaciones físicas', color: '#3B82F6' },
+                    { area: 'family', text: 'Consultar: ¿Esta decisión fortalece o debilita mis vínculos importantes?', color: '#F59E0B' }
+                ];
+                verification = 'Sabrás que funcionó cuando: sientas claridad visceral (no solo mental), puedas explicar tu decisión en 2 frases simples, y experimentes paz corporal.';
+            }
+            else if (lowerInput.includes('energía') || lowerInput.includes('cansad') || lowerInput.includes('agotad')) {
+                affectedAreas = ['health', 'recreation', 'home'];
+                coherenceLevel = 30;
+                diagnosis = 'Detectado: Batería vital baja. Desequilibrio entre gasto y recuperación energética.';
+                command = 'COMANDO PRIORITARIO: Restaurar reservas vitales. Descanso de calidad → Nutrición consciente → Eliminar vampiros energéticos.';
+                actions = [
+                    { area: 'health', text: 'Hoy: dormir 30 minutos extra, hidratación (2L agua), comida con proteína y vegetales verdes', color: '#10B981' },
+                    { area: 'recreation', text: 'Agendar 1 hora esta semana SOLO para ti, sin obligaciones. No negociable', color: '#EC4899' },
+                    { area: 'home', text: 'Identificar 3 "vampiros energéticos" (desorden, tareas pendientes) y eliminar UNO hoy', color: '#84CC16' }
+                ];
+                verification = 'Sabrás que funcionó cuando: puedas completar una tarea sin esfuerzo excesivo, tu cuerpo pida menos estimulantes, y sientas curiosidad natural.';
+            }
+            else if (lowerInput.includes('atender hoy') || lowerInput.includes('prioridad')) {
+                affectedAreas = ['spiritual', 'health', 'career'];
+                coherenceLevel = 60;
+                diagnosis = 'Detectado: Búsqueda de orientación diaria. Sistema listo para recibir instrucciones de alto nivel.';
+                command = 'COMANDO PRIORITARIO: Establecer intención clara para las próximas 24h. Alinear con energía disponible → Definir victoria del día.';
+                actions = [
+                    { area: 'spiritual', text: 'Pregunta matutina: "¿Qué versión de mí quiero ser hoy?" Elige 3 cualidades', color: '#8B5CF6' },
+                    { area: 'health
