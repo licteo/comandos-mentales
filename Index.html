@@ -1,291 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
-  <title>Mi Sistema de Vida</title>
-  <meta name="theme-color" content="#007BFF" />
-  <style>
-    :root{
-      --bg:#ffffff;
-      --card:#f2f8ff;
-      --accent:#007BFF;
-      --text:#06243a;
-      --muted:#6b7d8b;
-      --radius:14px;
-    }
-    [data-theme="dark"]{
-      --bg:#061426;
-      --card:#07172a;
-      --accent:#66b7ff;
-      --text:#eaf6ff;
-      --muted:#9fb9d6;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial}
-    .app{max-width:920px;margin:0 auto;padding:18px}
-    header{display:flex;gap:12px;align-items:center;justify-content:space-between}
-    h1{font-size:1.1rem;margin:0}
-    p.lead{margin:6px 0 12px;color:var(--muted);font-size:0.95rem}
-    .controls{display:flex;gap:8px;align-items:center}
-    .btn{background:var(--accent);color:white;padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
-    .ghost{background:transparent;color:var(--accent);border:1px solid var(--accent);padding:8px 10px;border-radius:10px}
-    nav.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:14px}
-    .card{background:var(--card);border-radius:var(--radius);padding:12px;min-height:100px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 6px 18px rgba(11,20,30,0.06)}
-    .card h3{margin:0;font-size:1rem}
-    .card p{margin:6px 0 0;color:var(--muted);font-size:0.9rem}
-    footer{margin-top:18px;color:var(--muted);font-size:0.85rem}
-    .modal-back{position:fixed;inset:0;background:rgba(2,8,20,0.45);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
-    .modal{background:var(--bg);border-radius:12px;padding:16px;max-width:560px;width:100%;box-shadow:0 18px 40px rgba(2,8,20,0.4)}
-    .modal h2{margin:0 0 8px}
-    .prompt{background:linear-gradient(90deg,var(--card),rgba(255,255,255,0.6));padding:12px;border-radius:10px;margin:8px 0;font-weight:600}
-    .breaths{display:flex;gap:8px;margin-top:8px}
-    .breath{flex:1;padding:8px;border-radius:8px;text-align:center;background:transparent;border:1px dashed var(--muted);color:var(--muted)}
-    .copy{background:transparent;border:0;color:var(--accent);cursor:pointer;font-weight:700}
-    .install-note{background:linear-gradient(90deg,#eaf4ff,white);padding:10px;border-radius:10px;border:1px solid #cfe8ff;color:var(--muted);display:flex;align-items:center;gap:10px}
-    @media (max-width:520px){h1{font-size:1rem}.card{min-height:110px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Sistema de Vida</title>
+<link rel="manifest" href="manifest.json">
+<style>
+body {
+  background: #FFFFFF;
+  color: #007BFF;
+  font-family: "Segoe UI", sans-serif;
+  padding: 20px;
+}
+h1 { text-align: center; }
+section {
+  margin-top: 20px;
+  border: 2px solid #007BFF;
+  border-radius: 12px;
+  padding: 15px;
+}
+input, textarea {
+  width: 100%; padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #007BFF;
+  border-radius: 8px;
+}
+button {
+  background: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-top: 10px;
+}
+.command {
+  border: 1px solid #007BFF;
+  padding: 10px; border-radius: 8px;
+  margin-bottom: 10px;
+}
+</style>
 </head>
-<body data-theme="light">
-  <div class="app">
-    <header>
-      <div>
-        <h1>Mi Sistema de Vida — Panel de Comandos</h1>
-        <p class="lead">Activa un programa con intención: respira, copia/comprende el comando y ejecuta.</p>
-      </div>
-      <div class="controls">
-        <button class="ghost" id="themeToggle">🔁 Tema</button>
-        <button class="btn" id="openGuide">Guía rápida</button>
-      </div>
-    </header>
+<body>
+  <h1>🧠 Mi Sistema de Vida</h1>
 
-    <div style="margin-top:12px" id="installArea">
-      <div class="install-note" id="installNote">
-        <div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:linear-gradient(180deg,#007BFF,#005fc7);color:white;font-weight:700">
-          <!-- icon SVG small -->
-          🧠
-        </div>
-        <div>
-          <strong>Instala la app</strong><br>
-          Agrega a pantalla de inicio para usarla como app. (Chrome: menú → Añadir a pantalla de inicio)
-        </div>
-      </div>
-    </div>
+  <section id="guide">
+    <h2>Guía para crear comandos</h2>
+    <p>Para cada comando sigue esta estructura:</p>
+    <ul>
+      <li><b>Nombre del Comando:</b> una palabra o frase corta (ej. “Modo Cuerpo — Entrenar”)</li>
+      <li><b>Propósito:</b> para qué sirve o qué busca activar</li>
+      <li><b>Analogía:</b> comparación visual o simbólica (ej. “como encender el motor del cuerpo”)</li>
+      <li><b>Resultado Esperado:</b> lo que deseas lograr o sentir</li>
+    </ul>
+  </section>
 
-    <nav class="grid" id="programGrid"></nav>
+  <section id="commands">
+    <h2>Comandos Actuales</h2>
+    <div id="commandList"></div>
+  </section>
 
-    <footer>
-      Fórmula rápida:
-      <code style="background:#eef6ff;padding:4px 6px;border-radius:6px;margin-left:6px">"Conciencia, abrir programa [nombre]. Enfocar toda mi energía en [acción]."</code>
-    </footer>
-  </div>
+  <section id="addCommand">
+    <h2>Agregar nuevo comando</h2>
+    <input id="name" placeholder="Nombre del comando">
+    <textarea id="purpose" placeholder="Propósito del comando"></textarea>
+    <textarea id="analogy" placeholder="Analogía del comando"></textarea>
+    <textarea id="result" placeholder="Resultado esperado"></textarea>
+    <button onclick="addCommand()">Agregar</button>
+  </section>
 
-  <div class="modal-back" id="modal">
-    <div class="modal" role="dialog" aria-modal="true">
-      <h2 id="modalTitle">Programa</h2>
-      <div class="prompt" id="modalPrompt">Comando ejemplo</div>
-      <div class="small" id="modalPurpose" style="color:var(--muted)"></div>
-      <div class="breaths" style="margin-top:12px">
-        <div class="breath" id="b1">Respira: 3 inhalaciones lentas</div>
-        <div class="breath" id="b2">Exhala: suelta tensión</div>
-      </div>
-      <div style="display:flex;gap:8px;margin-top:12px;justify-content:space-between;align-items:center">
-        <div style="color:var(--muted);font-size:0.9rem">¿Listo para activar?</div>
-        <div>
-          <button class="btn" id="copyBtn">Copiar comando</button>
-          <button class="ghost" id="closeModal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <section id="suggestions">
+    <h2>Sugerencias de uso cotidiano</h2>
+    <ul>
+      <li>🌬️ Antes de activar un comando: respira 3 veces lentamente, recita la frase internamente y actúa.</li>
+      <li>🔁 Repite el mismo comando varias veces al día durante 21–60 días para consolidarlo (<b>neuroplasticidad</b>).</li>
+      <li>🕰️ Guarda variantes para distintos contextos (p.ej. “Modo Cuerpo — Antes de entrenar” / “Modo Cuerpo — Al despertar”).</li>
+      <li>🔔 Añade recordatorios o notificaciones locales que te recuerden activar un comando.</li>
+      <li>🎵 Personaliza los textos de los 8 programas con frases bíblicas, mantras o afirmaciones.</li>
+    </ul>
+  </section>
 
 <script>
-/* ---------- Programas (personalizados) ---------- */
-const programs = [
-  {key:'espiritual', icon:'🌟', title:'Espiritual', purpose:'Elevar la conexión interior y orar.', phrase:'Conciencia, abrir programa espiritual. Enfocar toda mi energía en orar y sentir conexión divina.'},
-  {key:'cuerpo', icon:'💪', title:'Cuerpo', purpose:'Activar salud, movimiento y cuidado físico.', phrase:'Conciencia, abrir programa cuerpo. Enfocar toda mi energía en cuidar mi cuerpo: movimiento, respiración y nutrición.'},
-  {key:'familia', icon:'👨‍👩‍👧‍👦', title:'Familia', purpose:'Conectar y compartir presencia con los seres queridos.', phrase:'Conciencia, abrir programa familia. Enfocar toda mi energía en escuchar y apoyar con amor.'},
-  {key:'trabajo', icon:'🧰', title:'Trabajo', purpose:'Actuar con eficiencia y responsabilidad profesional.', phrase:'Conciencia, abrir programa trabajo. Enfocar toda mi energía en cumplir mis tareas con atención y orden.'},
-  {key:'finanzas', icon:'💰', title:'Finanzas', purpose:'Ordenar y planificar recursos económicos.', phrase:'Conciencia, abrir programa finanzas. Enfocar toda mi energía en revisar y ordenar mis cuentas.'},
-  {key:'estudio', icon:'📚', title:'Estudio', purpose:'Aprender y asimilar conocimiento con profundidad.', phrase:'Conciencia, abrir programa estudio. Enfocar toda mi energía en este tema y en comprender profundamente.'},
-  {key:'creacion', icon:'🎨', title:'Creación', purpose:'Dar forma a ideas y proyectos creativos.', phrase:'Conciencia, abrir programa creación. Enfocar toda mi energía en crear y materializar esta idea.'},
-  {key:'casa', icon:'🏠', title:'Casa', purpose:'Ordenar, limpiar y armonizar el espacio físico.', phrase:'Conciencia, abrir programa casa. Enfocar toda mi energía en ordenar, limpiar y organizar.'},
-  {key:'social', icon:'🤝', title:'Social', purpose:'Interactuar y compartir en comunidad.', phrase:'Conciencia, abrir programa social. Enfocar toda mi energía en conectar y disfrutar con otros.'},
-  {key:'descanso', icon:'💤', title:'Descanso', purpose:'Recuperar energía mediante sueño y pausa.', phrase:'Conciencia, abrir programa descanso. Enfocar toda mi energía en relajarme y regenerarme.'},
-  {key:'pareja', icon:'❤️', title:'Pareja/Intimidad', purpose:'Conectar en intimidad y cariño con la pareja.', phrase:'Conciencia, abrir programa pareja. Enfocar toda mi energía en amar y conectar plenamente.'}
-];
+let commands = JSON.parse(localStorage.getItem('commands')) || [];
 
-/* ---------- Render UI ---------- */
-const grid = document.getElementById('programGrid');
-programs.forEach(p=>{
-  const el = document.createElement('article');
-  el.className = 'card';
-  el.innerHTML = `<div><h3>${p.icon} ${p.title}</h3><p class="small">${p.purpose}</p></div>
-    <div style="display:flex;gap:8px;justify-content:space-between;align-items:center">
-      <button class="btn" data-key="${p.key}">Abrir</button>
-      <button class="ghost" data-preview="${p.key}">Ver</button>
-    </div>`;
-  grid.appendChild(el);
-});
-
-/* ---------- Modal logic ---------- */
-const modal = document.getElementById('modal');
-const modalTitle = document.getElementById('modalTitle');
-const modalPrompt = document.getElementById('modalPrompt');
-const modalPurpose = document.getElementById('modalPurpose');
-const copyBtn = document.getElementById('copyBtn');
-
-document.body.addEventListener('click', e=>{
-  const key = e.target.getAttribute('data-preview');
-  if(key){
-    const p = programs.find(x=>x.key===key);
-    openModal(p);
-  }
-  const openKey = e.target.getAttribute('data-key');
-  if(openKey){
-    const p = programs.find(x=>x.key===openKey);
-    openModal(p);
-  }
-});
-
-function openModal(p){
-  modal.style.display = 'flex';
-  modalTitle.textContent = `${p.icon} ${p.title}`;
-  modalPrompt.textContent = p.phrase;
-  modalPurpose.textContent = p.purpose;
-  copyBtn.onclick = async ()=>{
-    try{
-      await navigator.clipboard.writeText(p.phrase);
-      copyBtn.textContent = 'Copiado ✓';
-      setTimeout(()=>copyBtn.textContent='Copiar comando',1200);
-    }catch(err){
-      alert('No se pudo copiar. Selecciona manualmente el texto.');
-    }
-  };
-}
-document.getElementById('closeModal').onclick = ()=> modal.style.display='none';
-document.getElementById('modal').addEventListener('click', e=>{ if(e.target.id==='modal') modal.style.display='none'; });
-
-/* ---------- Theme toggle ---------- */
-document.getElementById('themeToggle').onclick = ()=>{
-  const html = document.documentElement;
-  const t = html.getAttribute('data-theme')==='dark' ? 'light':'dark';
-  html.setAttribute('data-theme',t);
-  localStorage.setItem('theme',t);
-};
-const saved = localStorage.getItem('theme'); if(saved) document.documentElement.setAttribute('data-theme',saved);
-document.getElementById('openGuide').onclick = ()=> alert('Usa la fórmula:\\n\"Conciencia, abrir programa [nombre]. Enfocar toda mi energía en [acción].\"\\n\\nRespira 3 veces y actúa.');
-
-/* ---------- PWA manifest dinámico + icon SVG dataURL ---------- */
-const svgIcon = `<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 64 64'>
-  <rect width='64' height='64' rx='12' fill='#007BFF'/>
-  <g transform='translate(8,10)' fill='none' stroke='#fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>
-    <path d='M10 6c0-3.3 4-6 8-6s8 2.7 8 6c0 1.8-.7 3.4-1.9 4.6C23.9 17 22 21 22 21s-2.9 5-8 5-8-5-8-5-1.9-4-2.1-10C3.9 9.4 7 7.8 10 6z'/>
-    <path d='M12 22s1-6 6-6 6 6 6 6'/>
-    <path d='M6 12s3-6 10-6'/>
-    <path d='M30 12s-3-6-10-6'/>
-  </g>
-</svg>`;
-const svgBase64 = 'data:image/svg+xml;base64,' + btoa(svgIcon);
-
-const manifest = {
-  name: "Mi Sistema de Vida",
-  short_name: "MiSistemaVida",
-  description: "Panel de comandos para alinear conciencia, cuerpo y energía.",
-  icons: [
-    { src: svgBase64, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
-  ],
-  start_url: ".",
-  display: "standalone",
-  background_color: "#ffffff",
-  theme_color: "#007BFF",
-  orientation: "any"
-};
-const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-const manifestURL = URL.createObjectURL(manifestBlob);
-const link = document.createElement('link');
-link.rel = 'manifest';
-link.href = manifestURL;
-document.head.appendChild(link);
-
-/* ---------- Install prompt handling ---------- */
-let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', (e)=>{
-  e.preventDefault();
-  deferredPrompt = e;
-  showInstallHint();
-});
-function showInstallHint(){
-  const area = document.getElementById('installArea');
-  const note = document.getElementById('installNote');
-  note.style.display = 'flex';
-  note.onclick = async ()=>{
-    if(deferredPrompt){
-      deferredPrompt.prompt();
-      const choice = await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      note.style.display = 'none';
-    } else {
-      alert('Abre el menú del navegador y elige "Agregar a pantalla de inicio".');
-    }
-  };
-}
-
-/* ---------- Service worker inline via blob ---------- */
-const swCode = `
-// service-worker (inline blob)
-const CACHE_NAME = 'mi-sistema-vida-v1';
-const OFFLINE_URL = '.';
-self.addEventListener('install', event=>{
-  event.waitUntil(caches.open(CACHE_NAME).then(cache=>{
-    return cache.addAll([
-      '.', // index (same document)
-    ]);
-  }));
-  self.skipWaiting();
-});
-self.addEventListener('activate', event=>{
-  event.waitUntil(self.clients.claim());
-});
-self.addEventListener('fetch', event=>{
-  // Try network first, fallback to cache
-  event.respondWith(fetch(event.request).catch(()=>caches.match(event.request)).then(resp=>{
-    return resp || caches.match(OFFLINE_URL);
-  }));
-});
-`;
-const swBlob = new Blob([swCode], {type:'application/javascript'});
-const swUrl = URL.createObjectURL(swBlob);
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register(swUrl).then(reg=>{
-    console.log('Service worker registrado (desde blob):', reg.scope);
-  }).catch(err=>{
-    console.warn('No se pudo registrar el service worker:', err);
+function renderCommands() {
+  const list = document.getElementById('commandList');
+  list.innerHTML = '';
+  commands.forEach((cmd, i) => {
+    list.innerHTML += `
+      <div class="command">
+        <h3>${cmd.name}</h3>
+        <p><b>Propósito:</b> ${cmd.purpose}</p>
+        <p><b>Analogía:</b> ${cmd.analogy}</p>
+        <p><b>Resultado:</b> ${cmd.result}</p>
+        <button onclick="deleteCommand(${i})">Eliminar</button>
+      </div>
+    `;
   });
 }
 
-/* ---------- Helpful tip: quick voice/internal command simulation ---------- */
-/* Small helper to speak the command (optional) */
-function speakText(text){
-  if('speechSynthesis' in window){
-    const msg = new SpeechSynthesisUtterance(text);
-    msg.lang = 'es-ES';
-    msg.rate = 1;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(msg);
+function addCommand() {
+  const name = document.getElementById('name').value;
+  const purpose = document.getElementById('purpose').value;
+  const analogy = document.getElementById('analogy').value;
+  const result = document.getElementById('result').value;
+  if (name && purpose && analogy && result) {
+    commands.push({ name, purpose, analogy, result });
+    localStorage.setItem('commands', JSON.stringify(commands));
+    renderCommands();
+    document.getElementById('name').value = '';
+    document.getElementById('purpose').value = '';
+    document.getElementById('analogy').value = '';
+    document.getElementById('result').value = '';
+  } else {
+    alert("Por favor completa todos los campos.");
   }
 }
 
-/* Add long-press vocalize and quick actions */
-document.addEventListener('dblclick', e=>{
-  const el = e.target.closest('article.card');
-  if(el){
-    const key = el.querySelector('button[data-key]')?.getAttribute('data-key');
-    const p = programs.find(x=>x.key===key);
-    if(p) speakText(p.phrase);
-  }
-});
-</script>
+function deleteCommand(index) {
+  commands.splice(index, 1);
+  localStorage.setItem('commands', JSON.stringify(commands));
+  renderCommands();
+}
 
+renderCommands();
+</script>
 </body>
 </html>
