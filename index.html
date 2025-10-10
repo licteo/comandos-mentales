@@ -368,6 +368,11 @@
             background: rgba(79, 70, 229, 0.4);
             transform: translateY(-2px);
         }
+        
+        .hidden-text {
+            display: none !important;
+            visibility: hidden !important;
+        }
 
         .tools-panel {
             position: fixed;
@@ -721,9 +726,9 @@
     </style>
 </head>
 <body>
-    <div class="theme-toggle" onclick="toggleTheme()">🌙</div>
+    <div class="theme-toggle" id="themeToggle">🌙</div>
     
-    <button class="tutorial-btn" onclick="startTutorial()">📚</button>
+    <button class="tutorial-btn" id="tutorialBtn">📚</button>
 
     <div class="container">
         <div class="header">
@@ -738,13 +743,13 @@
             <textarea id="userInput" placeholder="Escribe aquí tus pensamientos, emociones, situaciones o decisiones que necesites clarificar...&#10;&#10;Ejemplos:&#10;• Siento ansiedad sobre mi proyecto laboral&#10;• No tengo energía y mi casa está desordenada&#10;• Necesito decidir sobre un cambio de carrera&#10;• ¿Qué debo atender hoy?"></textarea>
             
             <div class="quick-actions">
-                <button class="quick-btn" onclick="fillQuick('¿Qué necesito atender hoy?')">¿Qué atender hoy?</button>
-                <button class="quick-btn" onclick="fillQuick('Me siento disperso y sin dirección')">Estado disperso</button>
-                <button class="quick-btn" onclick="fillQuick('Tengo una decisión importante que tomar')">Decisión importante</button>
-                <button class="quick-btn" onclick="fillQuick('Necesito equilibrar mi energía')">Equilibrar energía</button>
+                <button class="quick-btn" data-text="¿Qué necesito atender hoy?">¿Qué atender hoy?</button>
+                <button class="quick-btn" data-text="Me siento disperso y sin dirección">Estado disperso</button>
+                <button class="quick-btn" data-text="Tengo una decisión importante que tomar">Decisión importante</button>
+                <button class="quick-btn" data-text="Necesito equilibrar mi energía">Equilibrar energía</button>
             </div>
 
-            <button class="btn-analyze" onclick="analyzeInput()">⚡ Traducir a Comandos Claros</button>
+            <button class="btn-analyze" id="analyzeBtn">⚡ Traducir a Comandos Claros</button>
         </div>
 
         <div class="results-section" id="resultsSection">
@@ -781,23 +786,23 @@
     </div>
 
     <div class="tools-panel">
-        <button class="tool-btn" onclick="openMeditation()">
+        <button class="tool-btn" id="meditationBtn">
             <span>🧘</span>
             <span>Meditación</span>
         </button>
-        <button class="tool-btn" onclick="openJournal()">
+        <button class="tool-btn" id="journalBtn">
             <span>📔</span>
             <span>Diario</span>
         </button>
-        <button class="tool-btn" onclick="openStats()">
+        <button class="tool-btn" id="statsBtn">
             <span>📊</span>
             <span>Estadísticas</span>
         </button>
-        <button class="tool-btn" onclick="openReminders()">
+        <button class="tool-btn" id="remindersBtn">
             <span>⏰</span>
             <span>Recordatorios</span>
         </button>
-        <button class="tool-btn" onclick="openAffirmations()">
+        <button class="tool-btn" id="commandsBtn">
             <span>🗣️</span>
             <span>Comandos</span>
         </button>
@@ -809,7 +814,7 @@
             <h2>🧘 Meditación de Coherencia</h2>
             <div class="meditation-phase" id="meditationPhase">Prepárate para comenzar...</div>
             <div class="breath-circle" id="breathCircle">🫁</div>
-            <button class="btn-secondary" onclick="closeMeditation()">Finalizar</button>
+            <button class="btn-secondary" id="closeMeditationBtn">Finalizar</button>
         </div>
     </div>
 
@@ -834,8 +839,8 @@
             </div>
             
             <div class="modal-buttons">
-                <button class="btn-primary" onclick="saveJournal()">💾 Guardar</button>
-                <button class="btn-secondary" onclick="closeJournal()">Cerrar</button>
+                <button class="btn-primary" id="saveJournalBtn">💾 Guardar</button>
+                <button class="btn-secondary" id="closeJournalBtn">Cerrar</button>
             </div>
         </div>
     </div>
@@ -852,7 +857,7 @@
                 <p id="recommendation" style="color: #E2E8F0; line-height: 1.6;"></p>
             </div>
             
-            <button class="btn-secondary" style="width: 100%;" onclick="closeStats()">Cerrar</button>
+            <button class="btn-secondary" style="width: 100%;" id="closeStatsBtn">Cerrar</button>
         </div>
     </div>
 
@@ -866,7 +871,7 @@
                 <div class="reminder-input">
                     <input type="time" id="reminderTime" value="09:00">
                     <input type="text" id="reminderText" placeholder="Ej: Revisar mi coherencia diaria">
-                    <button class="btn-primary" onclick="addReminder()">Agregar</button>
+                    <button class="btn-primary" id="addReminderBtn">Agregar</button>
                 </div>
             </div>
 
@@ -875,7 +880,7 @@
                 <ul class="reminder-list" id="reminderList"></ul>
             </div>
             
-            <button class="btn-secondary" style="width: 100%; margin-top: 20px;" onclick="closeReminders()">Cerrar</button>
+            <button class="btn-secondary" style="width: 100%; margin-top: 20px;" id="closeRemindersBtn">Cerrar</button>
         </div>
     </div>
 
@@ -921,10 +926,10 @@
                     <label style="color: #CBD5E1; display: block; margin-bottom: 8px;">Tu Comando Verbal:</label>
                     <textarea id="customCommandText" placeholder="Ejemplo: Mi cuerpo AHORA libera toda tensión acumulada. Cada célula se relaja y regenera. Esto es verdad. Así es." style="width: 100%; min-height: 100px;"></textarea>
                 </div>
-                <button class="btn-primary" onclick="addCustomCommand()">➕ Agregar Comando</button>
+                <button class="btn-primary" id="addCustomCommandBtn">➕ Agregar Comando</button>
             </div>
             
-            <button class="btn-secondary" style="width: 100%; margin-top: 20px;" onclick="closeAffirmations()">Cerrar</button>
+            <button class="btn-secondary" style="width: 100%; margin-top: 20px;" id="closeAffirmationsBtn">Cerrar</button>
         </div>
     </div>
 
@@ -933,9 +938,9 @@
         <div class="modal-content" style="max-width: 800px;">
             <div id="tutorialContent"></div>
             <div style="display: flex; gap: 15px; margin-top: 30px; justify-content: space-between; flex-wrap: wrap;">
-                <button class="btn-secondary" id="tutorialPrev" onclick="prevTutorialStep()" style="display: none;">← Anterior</button>
-                <button class="btn-primary" id="tutorialNext" onclick="nextTutorialStep()">Siguiente →</button>
-                <button class="btn-secondary" onclick="closeTutorial()">Salir</button>
+                <button class="btn-secondary" id="tutorialPrev" style="display: none;">← Anterior</button>
+                <button class="btn-primary" id="tutorialNext">Siguiente →</button>
+                <button class="btn-secondary" id="closeTutorialBtn">Salir</button>
             </div>
             <div style="text-align: center; margin-top: 15px; color: #94A3B8;">
                 <span id="tutorialProgress"></span>
@@ -949,13 +954,39 @@
         <div id="tutorialTooltip">
             <div id="tutorialTooltipContent"></div>
             <div style="display: flex; gap: 10px; margin-top: 15px;">
-                <button onclick="skipTutorial()" style="flex: 1; padding: 10px; background: rgba(239, 68, 68, 0.2); border: 2px solid #EF4444; color: #EF4444; border-radius: 8px; cursor: pointer;">Saltar</button>
-                <button onclick="nextInteractiveTutorial()" style="flex: 2; padding: 10px; background: linear-gradient(135deg, #F59E0B, #D97706); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Entendido →</button>
+                <button id="skipTutorialBtn" style="flex: 1; padding: 10px; background: rgba(239, 68, 68, 0.2); border: 2px solid #EF4444; color: #EF4444; border-radius: 8px; cursor: pointer;">Saltar</button>
+                <button id="nextTutorialBtn" style="flex: 2; padding: 10px; background: linear-gradient(135deg, #F59E0B, #D97706); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Entendido →</button>
             </div>
         </div>
     </div>
 
     <script>
+        // Prevent any inline code from showing
+        document.addEventListener('DOMContentLoaded', function() {
+            // Remove any text nodes that contain code
+            const walker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            const nodesToRemove = [];
+            let node;
+            
+            while (node = walker.nextNode()) {
+                const text = node.textContent.trim();
+                if (text.includes('function') || text.includes('onclick') || text.includes('lowerInput')) {
+                    nodesToRemove.push(node);
+                }
+            }
+            
+            nodesToRemove.forEach(node => {
+                if (node.parentNode) {
+                    node.parentNode.removeChild(node);
+                }
+            });
+        });
         // Data structure
         const appData = {
             areas: [
@@ -1175,15 +1206,27 @@
                         <span style="color: ${area.color}; font-weight: 600;">${area.level}%</span>
                     </div>
                     <div class="level-adjuster">
-                        <button class="level-btn" onclick="adjustLevel(${index}, -5)" style="--color: ${area.color};">-5</button>
-                        <button class="level-btn" onclick="adjustLevel(${index}, 5)" style="--color: ${area.color};">+5</button>
+                        <button class="level-btn" data-index="${index}" data-delta="-5" style="--color: ${area.color};">-5</button>
+                        <button class="level-btn" data-index="${index}" data-delta="5" style="--color: ${area.color};">+5</button>
                     </div>
                 `;
-                card.onclick = (e) => {
-                    if (!e.target.classList.contains('level-btn')) {
-                        card.classList.toggle('active');
-                    }
-                };
+                
+                // Add event listeners to level buttons
+                const levelButtons = card.querySelectorAll('.level-btn');
+                levelButtons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const idx = parseInt(btn.getAttribute('data-index'));
+                        const delta = parseInt(btn.getAttribute('data-delta'));
+                        adjustLevel(idx, delta);
+                    });
+                });
+                
+                // Add click event to card
+                card.addEventListener('click', () => {
+                    card.classList.toggle('active');
+                });
+                
                 grid.appendChild(card);
             });
         }
@@ -1278,12 +1321,20 @@
                             <div style="margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 6px; font-size: 0.95rem; font-style: italic; color: #CBD5E1;">
                                 <strong style="color: ${action.color};">🗣️ Comando verbal:</strong><br>
                                 "${randomCommand}"
-                                <button onclick="speakCommand(\`${randomCommand.replace(/`/g, '\\`').replace(/"/g, '&quot;')}\`)" style="margin-top: 8px; padding: 6px 12px; background: ${action.color}; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem;">🔊 Pronunciar</button>
+                                <button class="speak-action-btn" data-cmd="${randomCommand.replace(/"/g, '&quot;')}" style="margin-top: 8px; padding: 6px 12px; background: ${action.color}; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem;">🔊 Pronunciar</button>
                             </div>
                         ` : ''}
                     </div>
                 `;
                 actionsList.appendChild(li);
+            });
+            
+            // Add event listeners to speak buttons
+            document.querySelectorAll('.speak-action-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const cmd = btn.getAttribute('data-cmd');
+                    speakCommand(cmd);
+                });
             });
 
             const coherenceCircle = document.getElementById('coherenceCircle');
@@ -1480,9 +1531,17 @@
                     <div>
                         <strong style="color: #A78BFA;">${r.time}</strong> - ${r.text}
                     </div>
-                    <button class="reminder-delete" onclick="deleteReminder(${r.id})">Eliminar</button>
+                    <button class="reminder-delete" data-id="${r.id}">Eliminar</button>
                 </li>
             `).join('');
+            
+            // Add event listeners
+            document.querySelectorAll('.reminder-delete').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = parseInt(btn.getAttribute('data-id'));
+                    deleteReminder(id);
+                });
+            });
         }
 
         // Affirmations
@@ -1522,24 +1581,48 @@
                     </h4>
                     ${commands.map((cmd, idx) => {
                         const isCustom = idx >= 3;
-                        const escapedCmd = cmd.replace(/`/g, '\\`').replace(/"/g, '&quot;');
+                        const cmdId = `cmd-${area.id}-${idx}`;
                         return `
                         <div style="background: rgba(30, 41, 59, 0.8); padding: 15px; border-radius: 8px; margin-bottom: 12px;">
                             <p style="color: #E2E8F0; line-height: 1.6; margin-bottom: 10px; font-size: 1.05rem;">"${cmd}"</p>
                             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                                <button onclick="speakCommand(\`${escapedCmd}\`)" style="flex: 1; min-width: 120px; padding: 8px 15px; background: linear-gradient(135deg, ${area.color}, ${area.color}dd); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">
+                                <button id="speak-${cmdId}" data-text="${cmd.replace(/"/g, '&quot;')}" style="flex: 1; min-width: 120px; padding: 8px 15px; background: linear-gradient(135deg, ${area.color}, ${area.color}dd); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">
                                     🔊 Pronunciar
                                 </button>
-                                <button onclick="copyCommand(\`${escapedCmd}\`)" style="padding: 8px 15px; background: rgba(79, 70, 229, 0.2); border: 2px solid ${area.color}; color: ${area.color}; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">
+                                <button id="copy-${cmdId}" data-text="${cmd.replace(/"/g, '&quot;')}" style="padding: 8px 15px; background: rgba(79, 70, 229, 0.2); border: 2px solid ${area.color}; color: ${area.color}; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">
                                     📋 Copiar
                                 </button>
-                                ${isCustom ? `<button onclick="deleteCustomCommand('${area.id}', ${idx - 3})" style="padding: 8px 15px; background: rgba(239, 68, 68, 0.2); border: 2px solid #EF4444; color: #EF4444; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">🗑️</button>` : ''}
+                                ${isCustom ? `<button id="delete-${cmdId}" data-area="${area.id}" data-idx="${idx - 3}" style="padding: 8px 15px; background: rgba(239, 68, 68, 0.2); border: 2px solid #EF4444; color: #EF4444; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">🗑️</button>` : ''}
                             </div>
                         </div>
                     `}).join('')}
                 `;
 
                 grid.appendChild(card);
+                
+                // Add event listeners
+                commands.forEach((cmd, idx) => {
+                    const cmdId = `cmd-${area.id}-${idx}`;
+                    const isCustom = idx >= 3;
+                    
+                    const speakBtn = document.getElementById(`speak-${cmdId}`);
+                    const copyBtn = document.getElementById(`copy-${cmdId}`);
+                    
+                    if (speakBtn) {
+                        speakBtn.addEventListener('click', () => speakCommand(cmd));
+                    }
+                    
+                    if (copyBtn) {
+                        copyBtn.addEventListener('click', () => copyCommand(cmd));
+                    }
+                    
+                    if (isCustom) {
+                        const deleteBtn = document.getElementById(`delete-${cmdId}`);
+                        if (deleteBtn) {
+                            deleteBtn.addEventListener('click', () => deleteCustomCommand(area.id, idx - 3));
+                        }
+                    }
+                });
             });
         }
 
@@ -1774,6 +1857,87 @@
 
         // Initialize
         initApp();
+        
+        // Setup all event listeners after DOM is ready
+        setTimeout(() => {
+            // Theme toggle
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+            
+            // Tutorial button
+            const tutorialBtn = document.getElementById('tutorialBtn');
+            if (tutorialBtn) tutorialBtn.addEventListener('click', startTutorial);
+            
+            // Analyze button
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            if (analyzeBtn) analyzeBtn.addEventListener('click', analyzeInput);
+            
+            // Quick action buttons
+            document.querySelectorAll('.quick-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const text = btn.getAttribute('data-text');
+                    fillQuick(text);
+                });
+            });
+            
+            // Tool panel buttons
+            const meditationBtn = document.getElementById('meditationBtn');
+            if (meditationBtn) meditationBtn.addEventListener('click', openMeditation);
+            
+            const journalBtn = document.getElementById('journalBtn');
+            if (journalBtn) journalBtn.addEventListener('click', openJournal);
+            
+            const statsBtn = document.getElementById('statsBtn');
+            if (statsBtn) statsBtn.addEventListener('click', openStats);
+            
+            const remindersBtn = document.getElementById('remindersBtn');
+            if (remindersBtn) remindersBtn.addEventListener('click', openReminders);
+            
+            const commandsBtn = document.getElementById('commandsBtn');
+            if (commandsBtn) commandsBtn.addEventListener('click', openAffirmations);
+            
+            // Modal close buttons
+            const closeMeditationBtn = document.getElementById('closeMeditationBtn');
+            if (closeMeditationBtn) closeMeditationBtn.addEventListener('click', closeMeditation);
+            
+            const saveJournalBtn = document.getElementById('saveJournalBtn');
+            if (saveJournalBtn) saveJournalBtn.addEventListener('click', saveJournal);
+            
+            const closeJournalBtn = document.getElementById('closeJournalBtn');
+            if (closeJournalBtn) closeJournalBtn.addEventListener('click', closeJournal);
+            
+            const closeStatsBtn = document.getElementById('closeStatsBtn');
+            if (closeStatsBtn) closeStatsBtn.addEventListener('click', closeStats);
+            
+            const addReminderBtn = document.getElementById('addReminderBtn');
+            if (addReminderBtn) addReminderBtn.addEventListener('click', addReminder);
+            
+            const closeRemindersBtn = document.getElementById('closeRemindersBtn');
+            if (closeRemindersBtn) closeRemindersBtn.addEventListener('click', closeReminders);
+            
+            const addCustomCommandBtn = document.getElementById('addCustomCommandBtn');
+            if (addCustomCommandBtn) addCustomCommandBtn.addEventListener('click', addCustomCommand);
+            
+            const closeAffirmationsBtn = document.getElementById('closeAffirmationsBtn');
+            if (closeAffirmationsBtn) closeAffirmationsBtn.addEventListener('click', closeAffirmations);
+            
+            // Tutorial navigation
+            const tutorialNext = document.getElementById('tutorialNext');
+            if (tutorialNext) tutorialNext.addEventListener('click', nextTutorialStep);
+            
+            const tutorialPrev = document.getElementById('tutorialPrev');
+            if (tutorialPrev) tutorialPrev.addEventListener('click', prevTutorialStep);
+            
+            const closeTutorialBtn = document.getElementById('closeTutorialBtn');
+            if (closeTutorialBtn) closeTutorialBtn.addEventListener('click', closeTutorial);
+            
+            // Interactive tutorial buttons
+            const skipBtn = document.getElementById('skipTutorialBtn');
+            if (skipBtn) skipBtn.addEventListener('click', skipTutorial);
+            
+            const nextBtn = document.getElementById('nextTutorialBtn');
+            if (nextBtn) nextBtn.addEventListener('click', nextInteractiveTutorial);
+        }, 100);
     </script>
 </body>
 </html>', text: 'Ejecutar 5 respiraciones profundas (4-7-8): inhala 4 seg, sostén 7 seg, exhala 8 seg', color: '#10B981' },
